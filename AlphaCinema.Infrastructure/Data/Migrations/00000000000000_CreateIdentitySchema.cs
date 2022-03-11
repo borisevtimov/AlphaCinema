@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 
-namespace AlphaCinema.Data.Migrations
+namespace AlphaCinema.Infrastructure.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace AlphaCinema.Data
+namespace AlphaCinema.Infrastructure.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
