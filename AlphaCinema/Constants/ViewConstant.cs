@@ -1,7 +1,7 @@
 ﻿namespace AlphaCinema.Constants
 {
-    public class ViewConstant
+    public static class ViewConstant
     {
-        public const string Title = "Title";
+        public const string Title = nameof(Title);
     }
 }

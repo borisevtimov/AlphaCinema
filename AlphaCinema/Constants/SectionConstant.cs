@@ -1,8 +1,8 @@
 ﻿namespace AlphaCinema.Constants
 {
-    public class SectionConstant
+    public static class SectionConstant
     {
-        public const string Scripts = "Scripts";
-        public const string Headers = "Headers";
+        public const string Scripts = nameof(Scripts);
+        public const string Headers = nameof(Headers);
     }
 }

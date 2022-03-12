@@ -1,4 +1,5 @@
-﻿using AlphaCinema.Models;
+﻿using AlphaCinema.Core.Constants;
+using AlphaCinema.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -15,6 +16,7 @@ namespace AlphaCinema.Controllers
 
         public IActionResult Index()
         {
+            ViewData[MessageConstant.ErrorMessage] = "Error, something went wrong!";
             return View();
         }
 
