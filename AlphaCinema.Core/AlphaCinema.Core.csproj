@@ -10,4 +10,8 @@
     <ProjectReference Include="..\AlphaCinema.Infrastructure\AlphaCinema.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CustomAttributes\" />
+  </ItemGroup>
+
 </Project>
