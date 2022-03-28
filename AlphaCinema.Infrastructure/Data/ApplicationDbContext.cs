@@ -9,7 +9,9 @@ namespace AlphaCinema.Infrastructure.Data
     {
         public DbSet<Movie> Movies { get; set; }
 
-        public DbSet<Projection> Projections { get; set; }
+        public DbSet<Voucher> Vouchers { get; set; }
+
+        public DbSet<UserVoucher> UserVouchers { get; set; }
 
         public DbSet<Purchase> Purchases { get; set; }
 
@@ -31,6 +33,9 @@ namespace AlphaCinema.Infrastructure.Data
             builder.Entity<Movie>()
                 .Property(p => p.Rating)
                 .HasDefaultValue(0);
+
+            builder.Entity<UserVoucher>()
+                .HasKey(k => new { k.UserId, k.VoucherCode });
         }
     }
 }

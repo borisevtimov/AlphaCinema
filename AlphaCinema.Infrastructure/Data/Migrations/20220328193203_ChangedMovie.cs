@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AlphaCinema.Infrastructure.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class ChangedMovie : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,7 +19,8 @@ namespace AlphaCinema.Infrastructure.Data.Migrations
                     Duration = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ReleaseDate = table.Column<DateTime>(type: "date", nullable: false),
-                    Rating = table.Column<double>(type: "float", nullable: false, defaultValue: 0.0)
+                    Rating = table.Column<double>(type: "float", nullable: false, defaultValue: 0.0),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

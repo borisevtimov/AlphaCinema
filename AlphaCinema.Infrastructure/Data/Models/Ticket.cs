@@ -9,8 +9,12 @@ namespace AlphaCinema.Infrastructure.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [Range(1, 100)]
-        public decimal Price { get; set; }
+        [ForeignKey(nameof(Movie))]
+        public int MovieId { get; set; }
+
+        [Required]
+        [Range(1, 30)]
+        public int HallNumber { get; set; }
 
         [Required]
         [Range(1, 30)]
@@ -21,14 +25,22 @@ namespace AlphaCinema.Infrastructure.Data.Models
         public byte Column { get; set; }
 
         [Required]
-        [ForeignKey(nameof(Projection))]
-        public int ProjectionId { get; set; }
+        public DateTime Start { get; set; }
+
+        [ForeignKey(nameof(Code))]
+        public string? VoucherCode { get; set; }
+
+        [Required]
+        [Range(1, 100)]
+        public decimal Price { get; set; }
 
         [Required]
         public bool IsPurchased { get; set; }
 
         [Required]
-        public Projection Projection { get; set; }
+        public Movie Movie { get; set; }
+
+        public Voucher Code { get; set; }
 
         public ICollection<Purchase> Purchases { get; set; }
 

@@ -25,11 +25,7 @@ namespace AlphaCinema.Infrastructure.Data.Models
         [Range(0, 10)]
         public double Rating { get; set; }
 
-        public ICollection<Projection> Projections { get; set; }
-
-        public Movie()
-        {
-            Projections = new HashSet<Projection>();
-        }
+        [Required]
+        public bool IsActive { get; set; }
     }
 }

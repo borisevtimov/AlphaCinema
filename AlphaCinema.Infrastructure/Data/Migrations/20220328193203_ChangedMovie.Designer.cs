@@ -4,6 +4,7 @@ using AlphaCinema.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlphaCinema.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220328193203_ChangedMovie")]
+    partial class ChangedMovie
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,6 +124,30 @@ namespace AlphaCinema.Infrastructure.Data.Migrations
                     b.ToTable("Movies");
                 });
 
+            modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Models.Projection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<byte>("HallNumber")
+                        .HasColumnType("tinyint");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("Projections");
+                });
+
             modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Models.Purchase", b =>
                 {
                     b.Property<string>("UserId")
@@ -151,69 +177,23 @@ namespace AlphaCinema.Infrastructure.Data.Migrations
                     b.Property<byte>("Column")
                         .HasColumnType("tinyint");
 
-                    b.Property<int>("HallNumber")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsPurchased")
                         .HasColumnType("bit");
-
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("ProjectionId")
+                        .HasColumnType("int");
+
                     b.Property<byte>("Row")
                         .HasColumnType("tinyint");
 
-                    b.Property<DateTime>("Start")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("VoucherCode")
-                        .HasColumnType("nvarchar(6)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("MovieId");
-
-                    b.HasIndex("VoucherCode");
+                    b.HasIndex("ProjectionId");
 
                     b.ToTable("Tickets");
-                });
-
-            modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Models.UserVoucher", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("VoucherCode")
-                        .HasColumnType("nvarchar(6)");
-
-                    b.HasKey("UserId", "VoucherCode");
-
-                    b.HasIndex("VoucherCode");
-
-                    b.ToTable("UserVouchers");
-                });
-
-            modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Models.Voucher", b =>
-                {
-                    b.Property<string>("Code")
-                        .HasMaxLength(6)
-                        .HasColumnType("nvarchar(6)");
-
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("ExpireDate")
-                        .HasColumnType("date");
-
-                    b.Property<bool>("IsUsed")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Code");
-
-                    b.ToTable("Vouchers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -353,6 +333,17 @@ namespace AlphaCinema.Infrastructure.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Models.Projection", b =>
+                {
+                    b.HasOne("AlphaCinema.Infrastructure.Data.Models.Movie", "Movie")
+                        .WithMany("Projections")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+                });
+
             modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Models.Purchase", b =>
                 {
                     b.HasOne("AlphaCinema.Infrastructure.Data.Models.Ticket", "Ticket")
@@ -374,38 +365,13 @@ namespace AlphaCinema.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Models.Ticket", b =>
                 {
-                    b.HasOne("AlphaCinema.Infrastructure.Data.Models.Movie", "Movie")
+                    b.HasOne("AlphaCinema.Infrastructure.Data.Models.Projection", "Projection")
                         .WithMany()
-                        .HasForeignKey("MovieId")
+                        .HasForeignKey("ProjectionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AlphaCinema.Infrastructure.Data.Models.Voucher", "Code")
-                        .WithMany("Tickets")
-                        .HasForeignKey("VoucherCode");
-
-                    b.Navigation("Code");
-
-                    b.Navigation("Movie");
-                });
-
-            modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Models.UserVoucher", b =>
-                {
-                    b.HasOne("AlphaCinema.Infrastructure.Data.Identity.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AlphaCinema.Infrastructure.Data.Models.Voucher", "Code")
-                        .WithMany("UserVouchers")
-                        .HasForeignKey("VoucherCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-
-                    b.Navigation("Code");
+                    b.Navigation("Projection");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -459,16 +425,14 @@ namespace AlphaCinema.Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Models.Movie", b =>
+                {
+                    b.Navigation("Projections");
+                });
+
             modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Models.Ticket", b =>
                 {
                     b.Navigation("Purchases");
-                });
-
-            modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Models.Voucher", b =>
-                {
-                    b.Navigation("Tickets");
-
-                    b.Navigation("UserVouchers");
                 });
 #pragma warning restore 612, 618
         }
