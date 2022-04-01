@@ -6,6 +6,7 @@ namespace AlphaCinema.Infrastructure.Data.Models
     public class Voucher
     {
         [Key]
+        [RegularExpression(@"^[A-Z0-9]{6}$")]
         [StringLength(6)]
         public string Code { get; set; }
 

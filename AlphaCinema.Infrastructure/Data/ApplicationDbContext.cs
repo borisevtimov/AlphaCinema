@@ -17,6 +17,8 @@ namespace AlphaCinema.Infrastructure.Data
 
         public DbSet<Ticket> Tickets { get; set; }
 
+        public DbSet<Card> Cards { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -26,9 +28,6 @@ namespace AlphaCinema.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-            builder.Entity<Purchase>()
-                .HasKey(k => new { k.UserId, k.TicketId });
 
             builder.Entity<Movie>()
                 .Property(p => p.Rating)

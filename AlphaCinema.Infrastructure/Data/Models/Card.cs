@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AlphaCinema.Infrastructure.Data.Models
 {
-    public class Purchase
+    public class Card
     {
         [Key]
         public string Id { get; set; }
@@ -14,30 +14,25 @@ namespace AlphaCinema.Infrastructure.Data.Models
         public string UserId { get; set; }
 
         [Required]
-        [ForeignKey(nameof(Ticket))]
-        public int TicketId { get; set; }
-
-        [ForeignKey(nameof(Card))]
-        public string? CardId { get; set; }
+        [RegularExpression(@"^\d{4}-\d{4}-\d{4}-\d{4}$")]
+        public string Number { get; set; }
 
         [Required]
-        public DateTime PurchaseDate { get; set; }
+        public int CVC { get; set; }
 
         [Required]
-        [Range(1, 100)]
-        public decimal Amount { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime ExpireDate { get; set; }
 
         [Required]
         public ApplicationUser ApplicationUser { get; set; }
 
-        [Required]
-        public Ticket Ticket { get; set; }
+        public ICollection<Purchase> Purchases { get; set; }
 
-        public Card? Card { get; set; }
-
-        public Purchase()
+        public Card()
         {
             Id = Guid.NewGuid().ToString();
+            Purchases = new HashSet<Purchase>();
         }
     }
 }

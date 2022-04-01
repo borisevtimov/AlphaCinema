@@ -27,5 +27,12 @@ namespace AlphaCinema.Infrastructure.Data.Models
 
         [Required]
         public bool IsActive { get; set; }
+
+        public ICollection<Ticket> Tickets { get; set; }
+
+        public Movie()
+        {
+            Tickets = new HashSet<Ticket>();
+        }
     }
 }
