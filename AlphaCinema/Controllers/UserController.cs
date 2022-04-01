@@ -16,7 +16,7 @@ namespace AlphaCinema.Controllers
         {
             //await roleManager.CreateAsync(new IdentityRole()
             //{
-                //Name = "Admin"
+            //    Name = "Administrator"
             //});
 
             return Ok();

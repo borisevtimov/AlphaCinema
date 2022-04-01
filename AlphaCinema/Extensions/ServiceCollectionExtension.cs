@@ -1,4 +1,5 @@
 ﻿using AlphaCinema.Infrastructure.Data;
+using AlphaCinema.Infrastructure.Data.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -7,7 +8,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services) 
         {
-            //services.AddScoped<IApplicationDbRepository, ApplicationDbRepository>();
+            services.AddScoped<IRepository, Repository>();
 
             return services;
         }
