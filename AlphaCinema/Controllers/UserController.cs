@@ -11,15 +11,5 @@ namespace AlphaCinema.Controllers
         {
             this.roleManager = roleManager;
         }
-
-        public async Task<IActionResult> CreateRole() 
-        {
-            //await roleManager.CreateAsync(new IdentityRole()
-            //{
-            //    Name = "Administrator"
-            //});
-
-            return Ok();
-        }
     }
 }
