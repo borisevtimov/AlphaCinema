@@ -54,10 +54,10 @@ namespace AlphaCinema.Areas.Administrator.Controllers
 
         public async Task<IActionResult> CreateRole()
         {
-            //await roleManager.CreateAsync(new IdentityRole()
-            //{
-            //    Name = "Administrator"
-            //});
+            await roleManager.CreateAsync(new IdentityRole()
+            {
+                Name = "User"
+            });
 
             return Ok();
         }

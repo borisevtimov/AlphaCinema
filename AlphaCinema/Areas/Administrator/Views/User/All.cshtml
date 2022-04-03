@@ -41,7 +41,7 @@
                                 <td>@user.RegisteredOn</td>
                                 <td><span class="tag tag-success">Approved</span></td>
                                 <td>
-                                    <button type="button" class="btn btn-block btn-outline-primary btn-xs">Edit</button>
+                                    <a asp-area="Administrator" asp-action="Edit" asp-controller="User" asp-route-id="@user.Id" class="btn btn-block btn-outline-primary btn-xs">Edit</a>
                                     <a asp-area="Administrator" asp-action="Delete" asp-controller="User" asp-route-id="@user.Id" class="btn btn-block btn-outline-danger btn-xs">Delete</a>
                                 </td>
                             </tr>
