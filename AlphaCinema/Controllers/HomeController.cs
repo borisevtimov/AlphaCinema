@@ -1,4 +1,5 @@
-﻿using AlphaCinema.Core.Constants;
+﻿using AlphaCinema.Constants;
+using AlphaCinema.Core.Constants;
 using AlphaCinema.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +39,12 @@ namespace AlphaCinema.Controllers
             SignOut();
 
             return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = RoleConstant.Administrator)]
+        public IActionResult Administrator() 
+        {
+            return RedirectToAction("Index", "Home", new { area = RoleConstant.Administrator });
         }
     }
 }

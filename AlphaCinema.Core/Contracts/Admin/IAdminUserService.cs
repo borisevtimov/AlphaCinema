@@ -8,5 +8,7 @@ namespace AlphaCinema.Core.Contracts.Admin
 
         Task<bool> DeleteUserAsync(string userId);
 
+        Task<IList<string>> GetUserRoles(string userId);
+
     }
 }

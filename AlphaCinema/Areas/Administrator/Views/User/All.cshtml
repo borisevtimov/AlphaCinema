@@ -29,7 +29,7 @@
                         <tr>
                             <th>Email</th>
                             <th>RegisteredOn</th>
-                            <th>Role</th>
+                            <th>Roles</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -39,7 +39,19 @@
                             <tr>
                                 <td>@user.Email</td>
                                 <td>@user.RegisteredOn</td>
-                                <td><span class="tag tag-success">Approved</span></td>
+                                <td>
+                                    @for (int i = 0; i < user.Roles.Count; i++)
+                                    {
+                                        if (i == user.Roles.Count - 1)
+                                        {
+                                            <span class="tag tag-success">@user.Roles[i]</span>
+                                            continue;
+                                        }
+
+                                        <span class="tag tag-success">@user.Roles[i], </span>
+                                    }
+                                </td>
+                                @*<td><span class="tag tag-success">Approved</span></td>*@
                                 <td>
                                     <a asp-area="Administrator" asp-action="Edit" asp-controller="User" asp-route-id="@user.Id" class="btn btn-block btn-outline-primary btn-xs">Edit</a>
                                     <a asp-area="Administrator" asp-action="Delete" asp-controller="User" asp-route-id="@user.Id" class="btn btn-block btn-outline-danger btn-xs">Delete</a>

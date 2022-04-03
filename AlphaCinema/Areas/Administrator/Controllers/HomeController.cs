@@ -9,6 +9,8 @@ namespace AlphaCinema.Areas.Administrator.Controllers
     {
         public IActionResult Index()
         {
+            //ViewData[MessageConstant.ErrorMessage] = "Error, something went wrong!";
+
             return View();
         }
 

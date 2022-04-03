@@ -7,5 +7,7 @@
         public string Email { get; set; }
 
         public DateTime RegisteredOn { get; set; }
+
+        public IList<string> Roles { get; set; }
     }
 }

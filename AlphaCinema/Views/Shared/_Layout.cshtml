@@ -1,4 +1,7 @@
 ﻿@using AlphaCinema.Constants
+@using AlphaCinema.Infrastructure.Data.Identity
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> userManager
 
 <!DOCTYPE html>
 <!--
@@ -38,6 +41,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
                 </li>
+                @if (User.IsInRole(RoleConstant.Administrator))
+                {
+                    <li class="nav-item">
+                        <form class="nav-item" asp-action="Administrator" asp-controller="Home" method="get">
+                            <button type="submit" class="nav-link btn">Administrator</button>
+                        </form>
+                    </li>
+                }
             </ul>
 
             <!-- Right navbar links -->
