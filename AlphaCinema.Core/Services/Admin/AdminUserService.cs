@@ -29,5 +29,20 @@ namespace AlphaCinema.Core.Services.Admin
                 })
                 .ToListAsync();
         }
+
+        public async Task<bool> DeleteUserAsync(string userId) 
+        {
+            ApplicationUser? user = await repository.All<ApplicationUser>()
+                .SingleOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            repository.Delete(user);
+            await repository.SaveChangesAsync();
+            return true;
+        }
     }
 }

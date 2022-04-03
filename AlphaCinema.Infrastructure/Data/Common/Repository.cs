@@ -21,7 +21,7 @@ namespace AlphaCinema.Infrastructure.Data.Common
             return await dbContext.SaveChangesAsync();
         }
 
-        public DbSet<T> DbSet<T>() where T : class 
+        public DbSet<T> DbSet<T>() where T : class
         {
             return dbContext.Set<T>();
         }
@@ -29,6 +29,11 @@ namespace AlphaCinema.Infrastructure.Data.Common
         public async Task Add<T>(T entity) where T : class
         {
             await dbContext.AddAsync(entity);
+        }
+
+        public void Delete<T>(T entity) where T : class
+        {
+            dbContext.Remove(entity);
         }
     }
 }

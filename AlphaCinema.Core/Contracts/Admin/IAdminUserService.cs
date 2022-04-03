@@ -6,5 +6,7 @@ namespace AlphaCinema.Core.Contracts.Admin
     {
         Task<List<AdminUserVM>> GetAllUsersAsync();
 
+        Task<bool> DeleteUserAsync(string userId);
+
     }
 }

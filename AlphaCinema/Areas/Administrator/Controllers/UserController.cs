@@ -1,4 +1,5 @@
-﻿using AlphaCinema.Core.Contracts.Admin;
+﻿using AlphaCinema.Core.Constants;
+using AlphaCinema.Core.Contracts.Admin;
 using AlphaCinema.Core.ViewModels;
 using AlphaCinema.Infrastructure.Data.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -28,6 +29,27 @@ namespace AlphaCinema.Areas.Administrator.Controllers
             List<AdminUserVM> users = await adminUserService.GetAllUsersAsync();
 
             return View(users);
+        }
+
+        public async Task<IActionResult> Delete(string Id) 
+        {
+            try
+            {
+                if (await adminUserService.DeleteUserAsync(Id))
+                {
+                    ViewData[MessageConstant.SuccessMessage] = "Deleted user successfully!";
+                }
+                else
+                {
+                    ViewData[MessageConstant.WarningMessage] = "User not found!";
+                }
+            }
+            catch (Exception)
+            {
+                ViewData[MessageConstant.ErrorMessage] = "Something went wrong!";
+            }
+
+            return RedirectToAction("All");
         }
 
         public async Task<IActionResult> CreateRole()
