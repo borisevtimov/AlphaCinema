@@ -9,7 +9,7 @@ namespace AlphaCinema.Areas.Administrator.Controllers
     {
         public IActionResult Index()
         {
-            //ViewData[MessageConstant.ErrorMessage] = "Error, something went wrong!";
+            ViewData[MessageConstant.SuccessMessage] = "Welcome to ADMIN area!";
 
             return View();
         }

@@ -1,0 +1,40 @@
+﻿@using AlphaCinema.Constants
+@using AlphaCinema.Core.ViewModels
+@model UserRolesVM
+
+@{
+    ViewData[ViewConstant.Title] = "User roles";
+}
+<div>
+<div class="row">
+    <div class="col-4">
+        <form id="roles" method="post">
+            <input type="hidden" name="UserId" value="@Model.UserId" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating">
+                <h3><b>User:</b> @Html.DisplayFor(m => m.Email)</h3>
+            </div>
+            <div class="form-floating">
+                <div class="form-group">
+                    <label>Mark the roles of the user</label>
+                    <select asp-for="RoleIds" multiple="" class="form-control">
+                        @foreach (SelectListItem listItem in (IEnumerable<SelectListItem>)ViewBag.RoleItems)
+                        {
+                            <option value="@listItem.Value" selected="@(listItem.Selected ? "selected" : "")">@listItem.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                <div class="col-4">
+                    <form class="nav-item" asp-action="ChangeRole" asp-controller="User" method="post">
+                        <button id="login-submit" type="submit" class="btn btn-primary btn-block">Submit</button>
+                    </form>
+                    @*<button id="login-submit" type="submit" class="btn btn-primary btn-block">Submit</button>*@
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+    </div>
+</div>

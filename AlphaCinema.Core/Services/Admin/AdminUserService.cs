@@ -14,7 +14,7 @@ namespace AlphaCinema.Core.Services.Admin
         private readonly UserManager<ApplicationUser> userManager;
 
         public AdminUserService(
-            IRepository repository, 
+            IRepository repository,
             RoleManager<IdentityRole> roleManager,
             UserManager<ApplicationUser> userManager
             )
@@ -25,7 +25,7 @@ namespace AlphaCinema.Core.Services.Admin
         }
 
         public async Task<List<AdminUserVM>> GetAllUsersAsync()
-        { 
+        {
             List<AdminUserVM> users = await repository.All<ApplicationUser>()
                 .Select(u => new AdminUserVM()
                 {
@@ -37,26 +37,26 @@ namespace AlphaCinema.Core.Services.Admin
 
             foreach (AdminUserVM userVM in users)
             {
-                userVM.Roles = await GetUserRoles(userVM.Id);
+                userVM.Roles = await GetUserRolesAsync(userVM.Id);
             }
 
             return users;
         }
 
-        public async Task<IList<string>> GetUserRoles(string userId)
+        public async Task<IList<string>> GetUserRolesAsync(string userId)
         {
             ApplicationUser? user = await repository.All<ApplicationUser>()
                 .SingleOrDefaultAsync(u => u.Id == userId);
 
             if (user == null)
             {
-                return null;
+                throw new ArgumentException("User does not exist");
             }
 
             return await userManager.GetRolesAsync(user);
         }
 
-        public async Task<bool> DeleteUserAsync(string userId) 
+        public async Task<bool> DeleteUserAsync(string userId)
         {
             ApplicationUser? user = await repository.All<ApplicationUser>()
                 .SingleOrDefaultAsync(u => u.Id == userId);
@@ -71,5 +71,22 @@ namespace AlphaCinema.Core.Services.Admin
             return true;
         }
 
+        public async Task<ApplicationUser> GetUserByIdAsync(string userId)
+        {
+            return await repository.All<ApplicationUser>()
+                .SingleOrDefaultAsync(u => u.Id == userId);
+        }
+
+        public async Task AddToRolesAsync(ApplicationUser user, string[] roleIds)
+        {
+            string[] roles = await roleManager.Roles
+                .Where(r => roleIds.Contains(r.Id))
+                .Select(r => r.Name)
+                .ToArrayAsync();
+
+            await userManager.AddToRolesAsync(user, roles);
+
+            await repository.SaveChangesAsync();
+        }
     }
 }

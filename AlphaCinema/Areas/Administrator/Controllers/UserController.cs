@@ -4,6 +4,7 @@ using AlphaCinema.Core.ViewModels;
 using AlphaCinema.Infrastructure.Data.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AlphaCinema.Areas.Administrator.Controllers
 {
@@ -26,12 +27,20 @@ namespace AlphaCinema.Areas.Administrator.Controllers
 
         public async Task<IActionResult> All()
         {
-            List<AdminUserVM> users = await adminUserService.GetAllUsersAsync();
+            try
+            {
+                List<AdminUserVM> users = await adminUserService.GetAllUsersAsync();
+                //ViewData[MessageConstant.SuccessMessage] = "Welcome to ADMIN area!";
 
-            return View(users);
+                return View(users);
+            }
+            catch (ArgumentException)
+            {
+                return View();
+            }
         }
 
-        public async Task<IActionResult> Delete(string Id) 
+        public async Task<IActionResult> Delete(string Id)
         {
             try
             {
@@ -50,6 +59,43 @@ namespace AlphaCinema.Areas.Administrator.Controllers
             }
 
             return RedirectToAction("All");
+        }
+
+        public async Task<IActionResult> ChangeRole(string Id)
+        {
+            ApplicationUser user = await adminUserService.GetUserByIdAsync(Id);
+
+            UserRolesVM userRoles = new UserRolesVM()
+            {
+                UserId = user.Id,
+                Email = user.Email
+            };
+
+            ViewBag.RoleItems = roleManager.Roles
+                .ToList()
+                .Select(r => new SelectListItem()
+                {
+                    Text = r.Name,
+                    Value = r.Id,
+                    Selected = userManager.IsInRoleAsync(user, r.Name).Result
+                });
+
+            return View(userRoles);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeRole(UserRolesVM model)
+        {
+            ApplicationUser user = await adminUserService.GetUserByIdAsync(model.UserId);
+            var userRoles = await userManager.GetRolesAsync(user);
+            await userManager.RemoveFromRolesAsync(user, userRoles);
+
+            if (model.RoleIds.Length > 0)
+            {
+                await adminUserService.AddToRolesAsync(user, model.RoleIds);
+            }
+
+            return RedirectToAction(nameof(All));
         }
 
         public async Task<IActionResult> CreateRole()
