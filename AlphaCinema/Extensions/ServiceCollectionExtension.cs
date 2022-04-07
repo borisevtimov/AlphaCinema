@@ -1,5 +1,5 @@
-﻿using AlphaCinema.Core.Contracts.Admin;
-using AlphaCinema.Core.Services.Admin;
+﻿using AlphaCinema.Core.Contracts;
+using AlphaCinema.Core.Services;
 using AlphaCinema.Infrastructure.Data;
 using AlphaCinema.Infrastructure.Data.Common;
 using Microsoft.EntityFrameworkCore;
@@ -8,10 +8,11 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtension
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services) 
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddScoped<IRepository, Repository>();
-            services.AddScoped<IAdminUserService, AdminUserService>();
+            services.AddScoped<IRepository, Repository>()
+                    .AddScoped<IAdminUserService, AdminUserService>()
+                    .AddScoped<IMovieService, MovieService>();
 
             return services;
         }

@@ -25,6 +25,9 @@ namespace AlphaCinema.Infrastructure.Data.Models
         public DateTime ExpireDate { get; set; }
 
         [Required]
+        public decimal Balance { get; set; }
+
+        [Required]
         public ApplicationUser ApplicationUser { get; set; }
 
         public ICollection<Purchase> Purchases { get; set; }

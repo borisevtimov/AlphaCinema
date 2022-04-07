@@ -1,11 +1,11 @@
-﻿using AlphaCinema.Core.Contracts.Admin;
+﻿using AlphaCinema.Core.Contracts;
 using AlphaCinema.Core.ViewModels;
 using AlphaCinema.Infrastructure.Data.Common;
 using AlphaCinema.Infrastructure.Data.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace AlphaCinema.Core.Services.Admin
+namespace AlphaCinema.Core.Services
 {
     public class AdminUserService : IAdminUserService
     {

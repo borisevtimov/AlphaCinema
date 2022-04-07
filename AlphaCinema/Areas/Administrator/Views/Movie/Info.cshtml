@@ -1,0 +1,83 @@
+﻿@using AlphaCinema.Constants
+@using AlphaCinema.Core.ViewModels
+@model IList<MovieMainInfoVM>
+
+@{
+    ViewData[ViewConstant.Title] = "Movies Main Info";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Movies</h3>
+    </div>
+
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Name</th>
+                    <th style="width: 65px">Rating</th>
+                    <th style="width: 140px">Status</th>
+                    <th style="width: 395px">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td>@(i+1)</td>
+                        <td>@Model[i].Name</td>
+                        <td>
+                            @if (Model[i].Rating >= 0 && Model[i].Rating < 3)
+                            {
+                                <span class="badge bg-danger">@string.Format("{0:F1}", Model[i].Rating)/10</span>
+                            }
+                            else if (Model[i].Rating < 7)
+                            {
+                                <span class="badge bg-warning">@string.Format("{0:F1}", Model[i].Rating)/10</span>
+                            }
+                            else if (Model[i].Rating <= 10)
+                            {
+                                <span class="badge bg-success">@string.Format("{0:F1}", Model[i].Rating)/10</span>
+                            }
+                        </td>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" disabled="" checked=@Model[i].Status>
+                                @if (Model[i].Status == true)
+                                {
+                                    <label class="form-check-label">Active</label>
+                                }
+                                else
+                                {
+                                    <label class="form-check-label">Off Screens</label>
+                                }
+                            </div>
+                        </td>
+                        <td>
+
+                            <div class="margin">
+                                <div>
+                                    <button type="button" class="btn btn-outline-warning btn-xs" style="min-width: 120px">More Info</button>
+                                    <button type="button" class="btn btn-outline-info btn-xs" style="min-width: 120px">Edit</button>
+                                    <button type="button" class="btn btn-outline-success btn-xs" style="min-width: 120px">Tickets</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card-footer clearfix">
+        <ul class="pagination pagination-sm m-0 float-right">
+            <li class="page-item"><a class="page-link" href="#">«</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">»</a></li>
+        </ul>
+    </div>
+</div>

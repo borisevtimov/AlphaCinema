@@ -1,5 +1,5 @@
 ﻿using AlphaCinema.Core.Constants;
-using AlphaCinema.Core.Contracts.Admin;
+using AlphaCinema.Core.Contracts;
 using AlphaCinema.Core.ViewModels;
 using AlphaCinema.Infrastructure.Data.Identity;
 using Microsoft.AspNetCore.Identity;

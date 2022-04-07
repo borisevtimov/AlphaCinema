@@ -1,7 +1,7 @@
 ﻿using AlphaCinema.Core.ViewModels;
 using AlphaCinema.Infrastructure.Data.Identity;
 
-namespace AlphaCinema.Core.Contracts.Admin
+namespace AlphaCinema.Core.Contracts
 {
     public interface IAdminUserService
     {

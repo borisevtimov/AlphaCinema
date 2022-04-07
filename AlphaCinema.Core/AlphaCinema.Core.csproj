@@ -11,9 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\User\" />
     <Folder Include="CustomAttributes\" />
-    <Folder Include="Services\User\" />
   </ItemGroup>
 
   <ItemGroup>
