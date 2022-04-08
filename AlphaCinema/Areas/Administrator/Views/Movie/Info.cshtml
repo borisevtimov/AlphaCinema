@@ -57,7 +57,8 @@
                         <td>
                             <div class="margin">
                                 <div>
-                                    <button type="button" class="btn btn-outline-warning btn-xs" style="min-width: 120px">More Info</button>
+                                    <a asp-area="Administrator" asp-controller="Movie" asp-action="MoreInfo" asp-route-id="@Model[i].MovieId" class="btn btn-outline-warning btn-xs" style="min-width: 120px">More Info</a>
+                                    @*<button type="button" class="btn btn-outline-warning btn-xs" style="min-width: 120px" asp-controller="Movie" asp-action="MoreInfo">More Info</button>*@
                                     <button type="button" class="btn btn-outline-info btn-xs" style="min-width: 120px">Edit</button>
                                     <button type="button" class="btn btn-outline-success btn-xs" style="min-width: 120px">Tickets</button>
                                 </div>
