@@ -19,5 +19,17 @@ namespace AlphaCinema.Areas.Administrator.Controllers
 
             return View(movies);
         }
+
+        public async Task<IActionResult> Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Add(AddMovieVM model)
+        {
+            Console.WriteLine(Request);
+            return View();
+        }
     }
 }
