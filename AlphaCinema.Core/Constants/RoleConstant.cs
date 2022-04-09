@@ -1,6 +1,6 @@
-﻿namespace AlphaCinema.Constants
+﻿namespace AlphaCinema.Core.Constants
 {
-    public static class RoleConstant
+    public class RoleConstant
     {
         public const string Administrator = nameof(Administrator);
 

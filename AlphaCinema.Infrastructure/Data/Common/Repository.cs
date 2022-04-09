@@ -26,7 +26,7 @@ namespace AlphaCinema.Infrastructure.Data.Common
             return dbContext.Set<T>();
         }
 
-        public async Task Add<T>(T entity) where T : class
+        public async Task AddAsync<T>(T entity) where T : class
         {
             await dbContext.AddAsync(entity);
         }

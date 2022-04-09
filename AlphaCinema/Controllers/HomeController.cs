@@ -1,9 +1,6 @@
-﻿using AlphaCinema.Constants;
-using AlphaCinema.Core.Constants;
-using AlphaCinema.Models;
+﻿using AlphaCinema.Core.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace AlphaCinema.Controllers
 {

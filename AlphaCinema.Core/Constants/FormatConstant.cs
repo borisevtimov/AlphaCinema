@@ -1,6 +1,6 @@
 ﻿namespace AlphaCinema.Core.Constants
 {
-    public static class FormatConstant
+    public class FormatConstant
     {
         public const string FullDate = "dd.MM.yyyy";
 

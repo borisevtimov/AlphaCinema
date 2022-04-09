@@ -4,6 +4,8 @@ namespace AlphaCinema.Core.Contracts
 {
     public interface IMovieService
     {
-        Task<IList<MovieMainInfoVM>> GetAllMoviesMainInfoAsync(); 
+        Task<IList<MovieMainInfoVM>> GetAllMoviesMainInfoAsync();
+
+        Task AddMovieAsync(AddMovieVM model);
     }
 }

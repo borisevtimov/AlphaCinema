@@ -4,8 +4,8 @@ namespace AlphaCinema.Core.ViewModels
 {
     public class AddMovieVM
     {
-        [Required]
-        [StringLength(100)]
+        [Required(ErrorMessage = "Name is required")]
+        [StringLength(100, ErrorMessage = "Name must be less than 100 characters")]
         public string Name { get; set; }
 
         [Required]
@@ -15,9 +15,9 @@ namespace AlphaCinema.Core.ViewModels
         public string? Description { get; set; }
 
         [Required(ErrorMessage = "Field is required")]
-        public DateTime ReleaseDate { get; set; }
+        [RegularExpression(@"^[0-3][0-9].[0-1][0-9].20[0-9][0-9]$", ErrorMessage = "Date must be in format dd.mm.yyyy")]
+        public string ReleaseDate { get; set; }
 
-        [Required]
         public bool IsActive { get; set; }
     }
 }

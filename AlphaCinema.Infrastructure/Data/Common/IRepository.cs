@@ -8,7 +8,7 @@ namespace AlphaCinema.Infrastructure.Data.Common
 
         IQueryable<T> All<T>() where T : class;
 
-        Task Add<T>(T entity) where T : class;
+        Task AddAsync<T>(T entity) where T : class;
 
         void Delete<T>(T entity) where T : class;
     }

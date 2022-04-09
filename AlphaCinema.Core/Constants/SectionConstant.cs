@@ -1,6 +1,6 @@
-﻿namespace AlphaCinema.Constants
+﻿namespace AlphaCinema.Core.Constants
 {
-    public static class SectionConstant
+    public class SectionConstant
     {
         public const string Scripts = nameof(Scripts);
         public const string Headers = nameof(Headers);
