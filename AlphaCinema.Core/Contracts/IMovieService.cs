@@ -13,5 +13,7 @@ namespace AlphaCinema.Core.Contracts
         Task<EditMovieVM> GetMovieForEditByIdAsync(int movieId);
 
         Task EditMovieAsync(EditMovieVM model);
+
+        Task<string> GetMovieNameByIdAsync(int movieId);
     }
 }

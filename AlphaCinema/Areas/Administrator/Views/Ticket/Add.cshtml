@@ -1,0 +1,64 @@
+﻿@using AlphaCinema.Core.Constants
+@using AlphaCinema.Core.ViewModels
+@model AdminAddTicket
+
+@{
+    ViewData[ViewConstant.Title] = "Add Ticket";
+}
+
+<div class="card card-primary align-content-center">
+    <form asp-controller="Ticket" asp-action="Add" method="post">
+        <input type="hidden" name="MovieId" value="@Model.MovieId" />
+        <div class="card-header">
+            <h3 class="card-title">@Model.MovieName - Ticket</h3>
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger input-group-text"></div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label asp-for="HallNumber">Hall</label>
+                        <input asp-for="HallNumber" class="form-control" value="">
+                    </div>
+                    <span asp-validation-for="HallNumber" class="text-danger"></span>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label asp-for="Row">Row</label>
+                        <input asp-for="Row" class="form-control" value="">
+                    </div>
+                    <span asp-validation-for="Row" class="text-danger"></span>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label asp-for="Column">Column</label>
+                        <input asp-for="Column" class="form-control" value="">
+                    </div>
+                    <span asp-validation-for="Column" class="text-danger"></span>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label asp-for="Start">Start</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-clock"></i></span>
+                            </div>
+                            <input asp-for="Start" type="datetime" class="form-control" placeholder="dd.mm.yyyy" value="">
+                        </div>
+                        <span asp-validation-for="Start" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label asp-for="Price">Price</label>
+                        <input asp-for="Price" class="form-control" value="">
+                    </div>
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary float-right">Submit</button>
+        </div>
+    </form>
+</div>

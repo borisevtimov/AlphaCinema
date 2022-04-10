@@ -130,5 +130,18 @@ namespace AlphaCinema.Core.Services
 
             return editMovieInfoVM;
         }
+
+        public async Task<string> GetMovieNameByIdAsync(int movieId)
+        {
+            Movie? movie = await repository.All<Movie>()
+                .SingleOrDefaultAsync(m => m.Id == movieId);
+
+            if (movie == null)
+            {
+                throw new ArgumentException(ExceptionConstant.MovieNotFound);
+            }
+
+            return movie.Name;
+        }
     }
 }
