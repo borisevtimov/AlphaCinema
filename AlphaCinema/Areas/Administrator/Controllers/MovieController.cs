@@ -16,11 +16,83 @@ namespace AlphaCinema.Areas.Administrator.Controllers
             this.movieService = movieService;
         }
 
-        public async Task<IActionResult> Info() 
+        public async Task<IActionResult> Info()
         {
             IList<MovieMainInfoVM> movies = await movieService.GetAllMoviesMainInfoAsync();
 
             return View(movies);
+        }
+
+        public async Task<IActionResult> MoreInfo(int id)
+        {
+            MoreMovieInfoVM? model = null;
+
+            try
+            {
+                model = await movieService.GetMovieByIdAsync(id);
+            }
+            catch (ArgumentException ae)
+            {
+                logger.LogError(ae.Message);
+                ViewData[MessageConstant.ErrorMessage] = ae.Message;
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewData[MessageConstant.ErrorMessage] = ExceptionConstant.UnexpectedError;
+                logger.LogError(e.Message);
+                return View();
+            }
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            EditMovieVM? model = null;
+
+            try
+            {
+                model = await movieService.GetMovieForEditByIdAsync(id);
+            }
+            catch (ArgumentException ae)
+            {
+                logger.LogError(ae.Message);
+                ViewData[MessageConstant.ErrorMessage] = ae.Message;
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewData[MessageConstant.ErrorMessage] = ExceptionConstant.UnexpectedError;
+                logger.LogError(e.Message);
+                return View();
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditMovieVM model)
+        {
+            try
+            {
+                await movieService.EditMovieAsync(model);
+            }
+            catch (ArgumentException ae)
+            {
+                logger.LogError(ae.Message);
+                ViewData[MessageConstant.ErrorMessage] = ae.Message;
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewData[MessageConstant.ErrorMessage] = ExceptionConstant.UnexpectedError;
+                logger.LogError(e.Message);
+                return View();
+            }
+
+            ViewData[MessageConstant.SuccessMessage] = "Movie changed successfully";
+            return RedirectToAction(nameof(Info));
         }
 
         public IActionResult Add()

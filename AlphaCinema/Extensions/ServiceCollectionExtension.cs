@@ -12,7 +12,8 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddScoped<IRepository, Repository>()
                     .AddScoped<IAdminUserService, AdminUserService>()
-                    .AddScoped<IMovieService, MovieService>();
+                    .AddScoped<IMovieService, MovieService>()
+                    .AddScoped<ITicketService, TicketService>();
 
             return services;
         }

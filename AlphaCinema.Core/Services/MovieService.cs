@@ -28,7 +28,7 @@ namespace AlphaCinema.Core.Services
             };
 
             DateTime date = DateTime.UtcNow;
-            bool isParsed = DateTime.TryParseExact(model.ReleaseDate, 
+            bool isParsed = DateTime.TryParseExact(model.ReleaseDate,
                 FormatConstant.FullDate, CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
 
             if (!isParsed)
@@ -42,16 +42,93 @@ namespace AlphaCinema.Core.Services
             await repository.SaveChangesAsync();
         }
 
+        public async Task EditMovieAsync(EditMovieVM model)
+        {
+            Movie? movie = await repository.All<Movie>()
+                .SingleOrDefaultAsync(m => m.Id == model.MovieId);
+
+            if (movie == null)
+            {
+                throw new ArgumentException(ExceptionConstant.MovieNotFound);
+            }
+
+            DateTime date = DateTime.UtcNow;
+            bool isParsed = DateTime.TryParseExact(model.ReleaseDate,
+                FormatConstant.FullDate, CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
+
+            if (!isParsed)
+            {
+                throw new ArgumentException("Invalid date");
+            }
+
+            movie.Duration = model.Duration;
+            movie.Rating = movie.Rating;
+            movie.Description = model.Description;
+            movie.IsActive = model.IsActive;
+            movie.Name = model.Name;
+            movie.ReleaseDate = date;
+
+            await repository.SaveChangesAsync();
+        }
+
         public async Task<IList<MovieMainInfoVM>> GetAllMoviesMainInfoAsync()
         {
             return await repository.All<Movie>()
                 .Select(m => new MovieMainInfoVM()
                 {
+                    MovieId = m.Id,
                     Name = m.Name,
                     Rating = m.Rating,
                     Status = m.IsActive
                 })
                 .ToListAsync();
+        }
+
+        public async Task<MoreMovieInfoVM> GetMovieByIdAsync(int movieId)
+        {
+            Movie? movie = await repository.All<Movie>()
+                .SingleOrDefaultAsync(m => m.Id == movieId);
+
+            if (movie == null)
+            {
+                throw new ArgumentException(ExceptionConstant.MovieNotFound);
+            }
+
+            MoreMovieInfoVM moreMovieInfoVM = new MoreMovieInfoVM()
+            {
+                Description = movie.Description,
+                Duration = movie.Duration,
+                IsActive = movie.IsActive,
+                MovieId = movie.Id,
+                Name = movie.Name,
+                Rating = movie.Rating,
+                ReleaseDate = movie.ReleaseDate
+            };
+
+            return moreMovieInfoVM;
+        }
+
+        public async Task<EditMovieVM> GetMovieForEditByIdAsync(int movieId)
+        {
+            Movie? movie = await repository.All<Movie>()
+                .SingleOrDefaultAsync(m => m.Id == movieId);
+
+            if (movie == null)
+            {
+                throw new ArgumentException(ExceptionConstant.MovieNotFound);
+            }
+
+            EditMovieVM editMovieInfoVM = new EditMovieVM()
+            {
+                Description = movie.Description,
+                Duration = movie.Duration,
+                IsActive = movie.IsActive,
+                MovieId = movie.Id,
+                Name = movie.Name,
+                ReleaseDate = movie.ReleaseDate.Date.ToString()
+            };
+
+            return editMovieInfoVM;
         }
     }
 }

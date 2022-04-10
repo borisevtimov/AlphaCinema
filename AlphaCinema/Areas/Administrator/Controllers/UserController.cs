@@ -30,7 +30,6 @@ namespace AlphaCinema.Areas.Administrator.Controllers
             try
             {
                 List<AdminUserVM> users = await adminUserService.GetAllUsersAsync();
-                //ViewData[MessageConstant.SuccessMessage] = "Welcome to ADMIN area!";
 
                 return View(users);
             }

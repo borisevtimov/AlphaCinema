@@ -4,7 +4,7 @@ namespace AlphaCinema.Core.ViewModels
 {
     public class MovieMainInfoVM
     {
-        public string MovieId { get; set; }
+        public int MovieId { get; set; }
 
         public string Name { get; set; }
 
