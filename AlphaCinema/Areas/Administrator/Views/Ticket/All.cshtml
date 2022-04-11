@@ -1,6 +1,6 @@
 ﻿@using AlphaCinema.Core.Constants
 @using AlphaCinema.Core.ViewModels
-@model IList<AdminTicketVM>
+@model AdminTicketsVM
 
 @{
     ViewData[ViewConstant.Title] = "Tickets";
@@ -8,7 +8,7 @@
 
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Movie - @Model[0].MovieName</h3>
+        <h3 class="card-title">Movie - @Model.MovieName</h3>
     </div>
     <div class="card-body p-0">
         <table class="table">
@@ -25,23 +25,23 @@
                 </tr>
             </thead>
             <tbody>
-                @for (int i = 0; i < Model.Count; i++)
+                @for (int i = 0; i < Model.Tickets.Count; i++)
                 {
                     <tr>
                         <td>@(i+1)</td>
-                        <td>@Model[i].HallNumber</td>
-                        <td>@Model[i].Row</td>
-                        <td>@Model[i].Column</td>
-                        <td>@Model[i].Start</td>
-                        <td>@Model[i].VoucherCode</td>
-                        <td>@Model[i].Price lv.</td>
-                        <td>@Model[i].IsPurchased</td>
+                        <td>@Model.Tickets[i].HallNumber</td>
+                        <td>@Model.Tickets[i].Row</td>
+                        <td>@Model.Tickets[i].Column</td>
+                        <td>@Model.Tickets[i].Start</td>
+                        <td>@Model.Tickets[i].VoucherCode</td>
+                        <td>@Model.Tickets[i].Price lv.</td>
+                        <td>@Model.Tickets[i].IsPurchased</td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
     <div class="card-footer clearfix">
-        <a asp-area="Administrator" asp-controller="Ticket" asp-action="Add" asp-route-id="@Model[0].MovieId" class="btn btn-primary float-right" style="max-width: 130px">Add Ticket</a>
+        <a asp-area="Administrator" asp-controller="Ticket" asp-action="Add" asp-route-id="@Model.MovieId" class="btn btn-primary float-right" style="max-width: 130px">Add Ticket</a>
     </div>
 </div>

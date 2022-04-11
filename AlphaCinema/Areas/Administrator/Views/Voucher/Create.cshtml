@@ -1,0 +1,49 @@
+﻿@using AlphaCinema.Core.Constants
+@using AlphaCinema.Core.ViewModels
+@model CreateVoucherVM
+
+@{
+    ViewData[ViewConstant.Title] = "Add Voucher";
+}
+
+<div class="card card-primary align-content-center">
+    <form asp-controller="Voucher" asp-action="Create" method="post">
+        <div class="card-header">
+            <h3 class="card-title">Create Voucher</h3>
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger input-group-text"></div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label asp-for="Code">Code</label>
+                        <input asp-for="Code" class="form-control" value="">
+                    </div>
+                    <span asp-validation-for="Code" class="text-danger"></span>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label asp-for="Discount">Discount</label>
+                        <input asp-for="Discount" class="form-control" value="">
+                    </div>
+                    <span asp-validation-for="Discount" class="text-danger"></span>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label asp-for="ExpireDate">Expire Date</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-clock"></i></span>
+                            </div>
+                            <input asp-for="ExpireDate" type="text" class="form-control" placeholder="dd.mm.yyyy" value="">
+                        </div>
+                        <span asp-validation-for="ExpireDate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary float-right">Submit</button>
+        </div>
+    </form>
+</div>

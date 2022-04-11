@@ -4,14 +4,6 @@ namespace AlphaCinema.Core.ViewModels
 {
     public class AdminTicketVM
     {
-        public int TicketId { get; set; }
-
-        [Required]
-        public int MovieId { get; set; }
-
-        [Required]
-        public string MovieName { get; set; }
-
         [Required]
         [Range(1, 30)]
         public int HallNumber { get; set; }

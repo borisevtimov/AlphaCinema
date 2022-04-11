@@ -9,18 +9,32 @@ namespace AlphaCinema.Areas.Administrator.Controllers
     {
         private readonly ITicketService ticketService;
         private readonly IMovieService movieService;
+        private readonly ILogger<TicketController> logger;
 
-        public TicketController(ITicketService ticketService, IMovieService movieService)
+        public TicketController
+            (
+            ITicketService ticketService,
+            IMovieService movieService,
+            ILogger<TicketController> logger
+            )
         {
             this.ticketService = ticketService;
             this.movieService = movieService;
+            this.logger = logger;
         }
 
         public async Task<IActionResult> All(int id)
         {
-            IList<AdminTicketVM> model = await ticketService.GetTicketsByMovieIdAsync(id);
-
-            return View(model);
+            try
+            {
+                AdminTicketsVM model = await ticketService.GetTicketsByMovieIdAsync(id);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                ViewData[ViewConstant.Title] = ExceptionConstant.UnexpectedError;
+                return RedirectToAction("Info", "Movie", new { area = RoleConstant.User });
+            }
         }
 
         public async Task<IActionResult> Add(int id)
@@ -49,11 +63,22 @@ namespace AlphaCinema.Areas.Administrator.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AdminAddTicket model)
+        public async Task<IActionResult> Add(AdminAddTicket model)
         {
-            ticketService.AddTicketAsync(model);
+            if (!ModelState.IsValid)
+            {
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    logger.LogError(error.ErrorMessage);
+                }
 
-            return RedirectToAction(nameof(All));
+                ViewData[MessageConstant.ErrorMessage] = ExceptionConstant.InvalidInput;
+                return RedirectToAction(nameof(Add), new { id = model.MovieId });
+            }
+
+            await ticketService.AddTicketAsync(model);
+
+            return RedirectToAction(nameof(All), new { id = model.MovieId });
         }
     }
 }

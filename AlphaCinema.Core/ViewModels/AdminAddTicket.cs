@@ -25,7 +25,7 @@ namespace AlphaCinema.Core.ViewModels
         public byte Column { get; set; }
 
         [Required(ErrorMessage = "Start date time is required!")]
-        [RegularExpression(@"^[0-9]{2}\.[0-9]{2}\.[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}$", ErrorMessage = "Date must be in format dd.mm.yyyy")]
+        [RegularExpression(@"^[0-9]{2}\.[0-9]{2}\.[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}$", ErrorMessage = "Date must be in format dd.mm.yyyy HH:mm:ss")]
         public DateTime Start { get; set; }
 
         [Required]

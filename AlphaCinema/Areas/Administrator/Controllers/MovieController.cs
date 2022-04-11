@@ -74,6 +74,17 @@ namespace AlphaCinema.Areas.Administrator.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditMovieVM model)
         {
+            if (!ModelState.IsValid)
+            {
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    logger.LogError(error.ErrorMessage);
+                }
+
+                ViewData[MessageConstant.ErrorMessage] = ExceptionConstant.InvalidInput;
+                return View(new { id = model.MovieId });
+            }
+
             try
             {
                 await movieService.EditMovieAsync(model);

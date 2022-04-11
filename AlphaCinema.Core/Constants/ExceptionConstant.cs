@@ -7,5 +7,9 @@
         public const string InvalidInput = "Invalid input!";
 
         public const string MovieNotFound = "Movie not found!";
+
+        public const string VoucherAlreadyExists = "Voucher already exists!";
+
+        public const string InvalidDate = "Invalid date!";
     }
 }
