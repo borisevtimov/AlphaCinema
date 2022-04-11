@@ -4,7 +4,6 @@ namespace AlphaCinema.Core.ViewModels
 {
     public class AdminAddTicket
     {
-        public int TicketId { get; set; }
 
         [Required]
         public int MovieId { get; set; }
@@ -26,7 +25,7 @@ namespace AlphaCinema.Core.ViewModels
 
         [Required(ErrorMessage = "Start date time is required!")]
         [RegularExpression(@"^[0-9]{2}\.[0-9]{2}\.[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}$", ErrorMessage = "Date must be in format dd.mm.yyyy HH:mm:ss")]
-        public DateTime Start { get; set; }
+        public string Start { get; set; }
 
         [Required]
         [Range(1, 100, ErrorMessage = "Price must be between 1 and 100lv.!")]

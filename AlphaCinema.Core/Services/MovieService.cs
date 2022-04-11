@@ -125,7 +125,7 @@ namespace AlphaCinema.Core.Services
                 IsActive = movie.IsActive,
                 MovieId = movie.Id,
                 Name = movie.Name,
-                ReleaseDate = movie.ReleaseDate.Date.ToString()
+                ReleaseDate = Convert.ToString(string.Format("{0:dd.MM.yyyy}", movie.ReleaseDate))
             };
 
             return editMovieInfoVM;

@@ -16,8 +16,8 @@ namespace AlphaCinema.Core.ViewModels
 
         public string? Description { get; set; }
 
-        [Required(ErrorMessage = "Field is required")]
-        [RegularExpression(@"^[0-3][0-9].[0-1][0-9].20[0-9][0-9]$", ErrorMessage = "Date must be in format dd.mm.yyyy")]
+        [Required(ErrorMessage = "Field is required!")]
+        [RegularExpression(@"^[0-9]{2}\.[0-9]{2}\.[0-9]{4}$", ErrorMessage = "Date must be in format dd.mm.yyyy")]
         public string ReleaseDate { get; set; }
 
         public bool IsActive { get; set; }

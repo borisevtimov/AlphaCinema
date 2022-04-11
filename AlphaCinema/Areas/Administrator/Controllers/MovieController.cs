@@ -93,13 +93,13 @@ namespace AlphaCinema.Areas.Administrator.Controllers
             {
                 logger.LogError(ae.Message);
                 ViewData[MessageConstant.ErrorMessage] = ae.Message;
-                return View();
+                return RedirectToAction(nameof(Edit), new { id = model.MovieId });
             }
             catch (Exception e)
             {
                 ViewData[MessageConstant.ErrorMessage] = ExceptionConstant.UnexpectedError;
                 logger.LogError(e.Message);
-                return View();
+                return RedirectToAction(nameof(Edit), new { id = model.MovieId });
             }
 
             ViewData[MessageConstant.SuccessMessage] = "Movie changed successfully";

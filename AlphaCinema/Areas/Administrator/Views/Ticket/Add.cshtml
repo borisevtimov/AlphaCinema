@@ -9,6 +9,7 @@
 <div class="card card-primary align-content-center">
     <form asp-controller="Ticket" asp-action="Add" method="post">
         <input type="hidden" name="MovieId" value="@Model.MovieId" />
+        <input type="hidden" name="MovieName" value="@Model.MovieName" />
         <div class="card-header">
             <h3 class="card-title">@Model.MovieName - Ticket</h3>
         </div>
@@ -43,7 +44,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-clock"></i></span>
                             </div>
-                            <input asp-for="Start" type="datetime" class="form-control" placeholder="dd.mm.yyyy HH:mm:ss" value="">
+                            <input asp-for="Start" type="text" class="form-control" placeholder="dd.mm.yyyy HH:mm:ss" value="">
                         </div>
                         <span asp-validation-for="Start" class="text-danger"></span>
                     </div>

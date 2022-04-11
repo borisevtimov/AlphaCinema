@@ -76,7 +76,22 @@ namespace AlphaCinema.Areas.Administrator.Controllers
                 return RedirectToAction(nameof(Add), new { id = model.MovieId });
             }
 
-            await ticketService.AddTicketAsync(model);
+            try
+            {
+                await ticketService.AddTicketAsync(model);
+            }
+            catch (ArgumentException ae)
+            {
+                ViewData[ViewConstant.Title] = ae.Message;
+                logger.LogError(ae.Message);
+                return RedirectToAction(nameof(Add), new { id = model.MovieId });
+            }
+            catch (Exception e)
+            {
+                ViewData[ViewConstant.Title] = ExceptionConstant.UnexpectedError;
+                logger.LogError(e.Message);
+                return RedirectToAction(nameof(Add), new { id = model.MovieId });
+            }
 
             return RedirectToAction(nameof(All), new { id = model.MovieId });
         }
