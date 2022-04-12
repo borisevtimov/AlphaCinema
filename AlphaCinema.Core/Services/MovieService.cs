@@ -71,6 +71,20 @@ namespace AlphaCinema.Core.Services
             await repository.SaveChangesAsync();
         }
 
+        public async Task<IList<ActiveMovieMainInfoVM>> GetAllActiveMoviesMainInfoAsync()
+        {
+            return await repository.All<Movie>()
+                .Where(m => m.IsActive == true)
+                .Select(m => new ActiveMovieMainInfoVM()
+                {
+                    MovieId = m.Id,
+                    Name = m.Name,
+                    Rating = m.Rating,
+                    ReleaseDate = m.ReleaseDate
+                })
+                .ToListAsync();
+        }
+
         public async Task<IList<MovieMainInfoVM>> GetAllMoviesMainInfoAsync()
         {
             return await repository.All<Movie>()
@@ -129,6 +143,28 @@ namespace AlphaCinema.Core.Services
             };
 
             return editMovieInfoVM;
+        }
+
+        public async Task<MovieFullInfoVM> GetMovieFullInfoByIdAsync(int movieId)
+        {
+            Movie? movie = await repository.All<Movie>()
+                .SingleOrDefaultAsync(m => m.Id == movieId);
+
+            if (movie == null)
+            {
+                throw new ArgumentException(ExceptionConstant.MovieNotFound);
+            }
+
+            MovieFullInfoVM fullMovieInfoVM = new MovieFullInfoVM()
+            {
+                Description = movie.Description,
+                Duration = movie.Duration,
+                Name = movie.Name,
+                Rating = movie.Rating,
+                ReleaseDate = movie.ReleaseDate
+            };
+
+            return fullMovieInfoVM;
         }
 
         public async Task<string> GetMovieNameByIdAsync(int movieId)

@@ -1,0 +1,60 @@
+﻿@using AlphaCinema.Core.Constants
+@using AlphaCinema.Core.ViewModels
+@model MovieFullInfoVM
+
+@{
+    ViewData[ViewConstant.Title] = "More Info";
+}
+
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">@Model.Name</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label asp-for="Name">Name</label>
+                    <input asp-for="Name" class="form-control" disabled="" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label asp-for="ReleaseDate">Release Date</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-clock"></i></span>
+                        </div>
+                        <input asp-for="ReleaseDate" type="date" class="form-control" disabled="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label asp-for="Duration">Duration (Minutes)</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-clock"></i></span>
+                        </div>
+                        <input asp-for="Duration" class="form-control" disabled="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description">Description</label>
+            <textarea asp-for="Description" class="form-control" rows="4" disabled=""></textarea>
+        </div>
+        <div class="col-sm-1">
+            <div class="form-group float-right">
+                <label asp-for="Rating">Rating</label>
+                <input asp-for="Rating" class="form-control" disabled="" />
+            </div>
+        </div>
+    </div>
+</div>

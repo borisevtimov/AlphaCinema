@@ -1,0 +1,59 @@
+﻿@using AlphaCinema.Core.Constants
+@using AlphaCinema.Core.ViewModels
+@model IList<ActiveMovieMainInfoVM>
+
+@{
+    ViewData[ViewConstant.Title] = "Active Movies";
+}
+
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">Movies On Screen</h3>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Name</th>
+                    <th style="width: 65px">Rating</th>
+                    <th style="width: 140px">Release Date</th>
+                    <th style="width: 395px">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td>@(i+1)</td>
+                        <td>@Model[i].Name</td>
+                        <td>
+                            @if (Model[i].Rating >= 0 && Model[i].Rating < 3)
+                            {
+                                <span class="badge bg-danger">@string.Format("{0:F1}", Model[i].Rating)/10</span>
+                            }
+                            else if (Model[i].Rating < 7)
+                            {
+                                <span class="badge bg-warning">@string.Format("{0:F1}", Model[i].Rating)/10</span>
+                            }
+                            else if (@Model[i].Rating <= 10)
+                            {
+                                <span class="badge bg-success">@string.Format("{0:F1}", Model[i].Rating)/10</span>
+                            }
+                        </td>
+                        <td>@Convert.ToString(string.Format("{0:dd.MM.yyyy} г.", Model[i].ReleaseDate))</td>
+                        <td>
+                            <div class="margin">
+                                <div>
+                                    <a asp-controller="Movie" asp-action="MoreInfo" asp-route-id="@Model[i].MovieId" class="btn btn-outline-warning btn-xs" style="min-width: 120px">More Info</a>
+                                    <a asp-area="Administrator" asp-controller="Movie" asp-action="Edit" class="btn btn-outline-info btn-xs" style="min-width: 120px">Tickets</a>
+                                    <a asp-area="Administrator" asp-controller="Ticket" asp-action="All" class="btn btn-outline-success btn-xs" style="min-width: 120px">Rate</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -16,7 +16,7 @@ namespace AlphaCinema.Areas.Administrator.Controllers
 
         public IActionResult UserArea()
         {
-            return RedirectToAction("Logout", "Home", new { area = "" });
+            return RedirectToAction("Logout", "User", new { area = "" });
         }
     }
 }

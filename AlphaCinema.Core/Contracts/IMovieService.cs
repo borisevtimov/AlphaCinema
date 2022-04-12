@@ -6,9 +6,13 @@ namespace AlphaCinema.Core.Contracts
     {
         Task<IList<MovieMainInfoVM>> GetAllMoviesMainInfoAsync();
 
+        Task<IList<ActiveMovieMainInfoVM>> GetAllActiveMoviesMainInfoAsync();
+
         Task AddMovieAsync(AddMovieVM model);
 
         Task<MoreMovieInfoVM> GetMovieByIdAsync(int movieId);
+
+        Task<MovieFullInfoVM> GetMovieFullInfoByIdAsync(int movieId);
 
         Task<EditMovieVM> GetMovieForEditByIdAsync(int movieId);
 
