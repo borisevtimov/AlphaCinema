@@ -7,7 +7,7 @@
         public string Name { get; set; }
 
         public double Rating { get; set; } = 0;
-
+        
         public DateTime ReleaseDate { get; set; }
     }
 }

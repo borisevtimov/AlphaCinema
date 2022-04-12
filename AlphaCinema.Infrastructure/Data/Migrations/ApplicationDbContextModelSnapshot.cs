@@ -186,6 +186,30 @@ namespace AlphaCinema.Infrastructure.Data.Migrations
                     b.ToTable("Purchases");
                 });
 
+            modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Models.Rating", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Score")
+                        .HasColumnType("float");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Ratings");
+                });
+
             modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Models.Ticket", b =>
                 {
                     b.Property<int>("Id")
@@ -433,6 +457,25 @@ namespace AlphaCinema.Infrastructure.Data.Migrations
                     b.Navigation("Card");
 
                     b.Navigation("Ticket");
+                });
+
+            modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Models.Rating", b =>
+                {
+                    b.HasOne("AlphaCinema.Infrastructure.Data.Models.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AlphaCinema.Infrastructure.Data.Identity.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Models.Ticket", b =>

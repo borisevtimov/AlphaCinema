@@ -24,7 +24,8 @@ namespace AlphaCinema.Core.Services
                 Name = model.Name,
                 Duration = model.Duration,
                 Description = model.Description,
-                IsActive = model.IsActive
+                IsActive = model.IsActive,
+                Rating = model.Rating
             };
 
             DateTime date = DateTime.UtcNow;
@@ -62,7 +63,7 @@ namespace AlphaCinema.Core.Services
             }
 
             movie.Duration = model.Duration;
-            movie.Rating = movie.Rating;
+            movie.Rating = model.Rating;
             movie.Description = model.Description;
             movie.IsActive = model.IsActive;
             movie.Name = model.Name;

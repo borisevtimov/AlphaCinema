@@ -18,6 +18,10 @@ namespace AlphaCinema.Core.ViewModels
         [RegularExpression(@"^[0-3][0-9].[0-1][0-9].20[0-9][0-9]$", ErrorMessage = "Date must be in format dd.mm.yyyy")]
         public string ReleaseDate { get; set; }
 
+        [Required(ErrorMessage = "Rating is required")]
+        [Range(0, 10, ErrorMessage = "Rating must be number between 0 and 10")]
+        public double Rating { get; set; }
+
         public bool IsActive { get; set; }
     }
 }
