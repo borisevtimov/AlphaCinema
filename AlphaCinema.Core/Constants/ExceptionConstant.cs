@@ -11,5 +11,7 @@
         public const string VoucherAlreadyExists = "Voucher already exists!";
 
         public const string InvalidDate = "Invalid date!";
+
+        public const string NotActiveTickets = "There are not active tickets for this movie!";
     }
 }

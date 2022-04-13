@@ -1,4 +1,6 @@
 ﻿@using AlphaCinema.Core.Constants
+@using AlphaCinema.Core.ViewModels
+@model ActiveTicketsListVM
 
 @{
     ViewData[ViewConstant.Title] = "Tickets";
@@ -6,40 +8,41 @@
 
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Movie - MovieName</h3>
+        <h3 class="card-title">Movie - @Model.MovieName</h3>
     </div>
     <div class="card-body p-0">
         <table class="table">
             <thead>
                 <tr>
                     <th style="width: 10px">#</th>
-                    <th style="width: 120px">Hall</th>
-                    <th style="width: 120px">Row</th>
-                    <th style="width: 120px">Column</th>
-                    <th style="width: 270px">Start</th>
-                    <th>Voucher</th>
+                    <th style="width: 140px">Hall</th>
+                    <th style="width: 140px">Row</th>
+                    <th style="width: 140px">Column</th>
+                    <th style="width: 340px">Start</th>
                     <th>Price</th>
-                    <th style="width: 40px">Purchased</th>
+                    <th style="width: 40px"></th>
                 </tr>
             </thead>
             <tbody>
-                @for (int i = 0; i < 3; i++)
+                @for (int i = 0; i < @Model.Tickets.Count; i++)
                 {
                     <tr>
                         <td>@(i+1)</td>
-                        <td>2</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>21.12.2020 20:15:30</td>
-                        <td>CA92BX</td>
-                        <td>9.93 lv.</td>
-                        <td>True</td>
+                        <td>@Model.Tickets[i].HallNumber</td>
+                        <td>@Model.Tickets[i].Row</td>
+                        <td>@Model.Tickets[i].Column</td>
+                        <td>@Model.Tickets[i].Start</td>
+                        <td>@Model.Tickets[i].Price lv.</td>
+                        <td>
+                            <div class="margin">
+                                <div>
+                                    <a asp-controller="Ticket" asp-action="Purchase" asp-route-id="@Model.Tickets[i].TicketId" class="btn btn-outline-success btn-xs" style="min-width: 120px">Purchase</a>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 }
             </tbody>
         </table>
-    </div>
-    <div class="card-footer clearfix">
-        <a asp-area="Administrator" asp-controller="Ticket" asp-action="Add" asp-route-id="@Model.MovieId" class="btn btn-primary float-right" style="max-width: 130px">Add Ticket</a>
     </div>
 </div>

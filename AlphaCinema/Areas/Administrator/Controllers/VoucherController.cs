@@ -26,7 +26,7 @@ namespace AlphaCinema.Areas.Administrator.Controllers
             catch (Exception e)
             {
                 ViewData[MessageConstant.ErrorMessage] = ExceptionConstant.UnexpectedError;
-                logger.LogError(e.Message);
+                logger.LogWarning(e.Message);
                 return RedirectToAction("Index", "Home");
             }
 
@@ -44,7 +44,7 @@ namespace AlphaCinema.Areas.Administrator.Controllers
             {
                 foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
                 {
-                    logger.LogError(error.ErrorMessage);
+                    logger.LogWarning(error.ErrorMessage);
                 }
 
                 ViewData[MessageConstant.ErrorMessage] = ExceptionConstant.InvalidInput;
@@ -58,13 +58,13 @@ namespace AlphaCinema.Areas.Administrator.Controllers
             catch (ArgumentException ae)
             {
                 ViewData[MessageConstant.ErrorMessage] = ae.Message;
-                logger.LogError(ae.Message);
+                logger.LogWarning(ae.Message);
                 return RedirectToAction(nameof(Create));
             }
             catch (Exception e)
             {
                 ViewData[MessageConstant.ErrorMessage] = e.Message;
-                logger.LogError(e.Message);
+                logger.LogWarning(e.Message);
                 return RedirectToAction(nameof(Create));
             }
 

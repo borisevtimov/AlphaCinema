@@ -30,9 +30,10 @@ namespace AlphaCinema.Areas.Administrator.Controllers
                 AdminTicketsVM model = await ticketService.GetTicketsByMovieIdAsync(id);
                 return View(model);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 ViewData[ViewConstant.Title] = ExceptionConstant.UnexpectedError;
+                logger.LogWarning(e.Message);
                 return RedirectToAction("Info", "Movie", new { area = RoleConstant.User });
             }
         }
@@ -51,11 +52,13 @@ namespace AlphaCinema.Areas.Administrator.Controllers
             catch (ArgumentException ae)
             {
                 ViewData[ViewConstant.Title] = ae.Message;
+                logger.LogWarning(ae.Message);
                 return View();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 ViewData[ViewConstant.Title] = ExceptionConstant.UnexpectedError;
+                logger.LogWarning(e.Message);
                 return View();
             }
 
@@ -69,7 +72,7 @@ namespace AlphaCinema.Areas.Administrator.Controllers
             {
                 foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
                 {
-                    logger.LogError(error.ErrorMessage);
+                    logger.LogWarning(error.ErrorMessage);
                 }
 
                 ViewData[MessageConstant.ErrorMessage] = ExceptionConstant.InvalidInput;
@@ -83,13 +86,13 @@ namespace AlphaCinema.Areas.Administrator.Controllers
             catch (ArgumentException ae)
             {
                 ViewData[ViewConstant.Title] = ae.Message;
-                logger.LogError(ae.Message);
+                logger.LogWarning(ae.Message);
                 return RedirectToAction(nameof(Add), new { id = model.MovieId });
             }
             catch (Exception e)
             {
                 ViewData[ViewConstant.Title] = ExceptionConstant.UnexpectedError;
-                logger.LogError(e.Message);
+                logger.LogWarning(e.Message);
                 return RedirectToAction(nameof(Add), new { id = model.MovieId });
             }
 

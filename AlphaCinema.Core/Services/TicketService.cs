@@ -44,6 +44,35 @@ namespace AlphaCinema.Core.Services
             await repository.SaveChangesAsync();
         }
 
+        public async Task<ActiveTicketsListVM> GetActiveTicketsByMovieIdAsync(int movieId)
+        {
+            ActiveTicketsListVM? activeTickets = await repository.All<Ticket>()
+                .Where(t => t.MovieId == movieId && t.IsPurchased == false)
+                .Select(ticket => new ActiveTicketsListVM()
+                {
+                    MovieName = ticket.Movie.Name,
+                    Tickets = ticket.Movie.Tickets.Select(t => new ActiveTicketVM()
+                    {
+                        TicketId = t.Id,
+                        Start = t.Start,
+                        Column = t.Column,
+                        HallNumber = t.HallNumber,
+                        Price = t.Price,
+                        Row = t.Row,
+                    })
+                       .ToList()
+                })
+                .FirstOrDefaultAsync();
+
+
+            if (activeTickets == null)
+            {
+                throw new InvalidOperationException(ExceptionConstant.NotActiveTickets);
+            }
+
+            return activeTickets;
+        }
+
         public async Task<AdminTicketsVM> GetTicketsByMovieIdAsync(int movieId)
         {
             AdminTicketsVM? ticketsModel = await repository.All<Movie>()

@@ -7,5 +7,7 @@ namespace AlphaCinema.Core.Contracts
         Task<AdminTicketsVM> GetTicketsByMovieIdAsync(int movieId);
 
         Task AddTicketAsync(AdminAddTicket model);
+
+        Task<ActiveTicketsListVM> GetActiveTicketsByMovieIdAsync(int movieId);
     }
 }

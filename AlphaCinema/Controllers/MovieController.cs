@@ -33,7 +33,7 @@ namespace AlphaCinema.Controllers
             catch (ArgumentException ae)
             {
                 ViewData[MessageConstant.ErrorMessage] = ae.Message;
-                logger.LogError(ae.Message);
+                logger.LogWarning(ae.Message);
                 return RedirectToAction(nameof(Active));
             }
         }

@@ -57,14 +57,14 @@ namespace AlphaCinema.Areas.Administrator.Controllers
             }
             catch (ArgumentException ae)
             {
-                logger.LogError(ae.Message);
+                logger.LogWarning(ae.Message);
                 ViewData[MessageConstant.ErrorMessage] = ae.Message;
                 return View();
             }
             catch (Exception e)
             {
                 ViewData[MessageConstant.ErrorMessage] = ExceptionConstant.UnexpectedError;
-                logger.LogError(e.Message);
+                logger.LogWarning(e.Message);
                 return View();
             }
 
@@ -78,7 +78,7 @@ namespace AlphaCinema.Areas.Administrator.Controllers
             {
                 foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
                 {
-                    logger.LogError(error.ErrorMessage);
+                    logger.LogWarning(error.ErrorMessage);
                 }
 
                 ViewData[MessageConstant.ErrorMessage] = ExceptionConstant.InvalidInput;
@@ -91,14 +91,14 @@ namespace AlphaCinema.Areas.Administrator.Controllers
             }
             catch (ArgumentException ae)
             {
-                logger.LogError(ae.Message);
+                logger.LogWarning(ae.Message);
                 ViewData[MessageConstant.ErrorMessage] = ae.Message;
                 return RedirectToAction(nameof(Edit), new { id = model.MovieId });
             }
             catch (Exception e)
             {
                 ViewData[MessageConstant.ErrorMessage] = ExceptionConstant.UnexpectedError;
-                logger.LogError(e.Message);
+                logger.LogWarning(e.Message);
                 return RedirectToAction(nameof(Edit), new { id = model.MovieId });
             }
 
@@ -118,7 +118,7 @@ namespace AlphaCinema.Areas.Administrator.Controllers
             {
                 foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
                 {
-                    logger.LogError(error.ErrorMessage);
+                    logger.LogWarning(error.ErrorMessage);
                 }
 
                 ViewData[MessageConstant.ErrorMessage] = ExceptionConstant.InvalidInput;
@@ -132,13 +132,13 @@ namespace AlphaCinema.Areas.Administrator.Controllers
             catch (ArgumentException ae)
             {
                 ViewData[MessageConstant.ErrorMessage] = ExceptionConstant.InvalidInput;
-                logger.LogError(ae.Message);
+                logger.LogWarning(ae.Message);
                 return View();
             }
             catch (Exception e)
             {
                 ViewData[MessageConstant.ErrorMessage] = ExceptionConstant.UnexpectedError;
-                logger.LogError(e.Message);
+                logger.LogWarning(e.Message);
                 return View();
             }
 
