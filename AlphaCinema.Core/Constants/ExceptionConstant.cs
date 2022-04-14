@@ -13,5 +13,7 @@
         public const string InvalidDate = "Invalid date!";
 
         public const string NotActiveTickets = "There are not active tickets for this movie!";
+
+        public const string VoucherAlreadyOwned = "User already owns the voucher!";
     }
 }

@@ -1,4 +1,6 @@
 ﻿@using AlphaCinema.Core.Constants
+@using AlphaCinema.Core.ViewModels
+@model IList<DisplayVoucherVM>
 
 @{
     ViewData[ViewConstant.Title] = "Available Vouchers";
@@ -20,16 +22,16 @@
                 </tr>
             </thead>
             <tbody>
-                @for (int i = 0; i < 3; i++)
+                @for (int i = 0; i < Model.Count; i++)
                 {
                     <form asp-controller="Voucher" asp-action="Get" method="post">
                     <tr>
                         <td>@(i + 1)</td>
-                        <td>FA9X0C</td>
-                        <td>21%</td>
-                        <td>21.12.2022 г.</td>
+                        <td>@Model[i].Code</td>
+                        <td>@(Model[i].Discount * 100)%</td>
+                        <td>@Convert.ToString(string.Format("{0:dd.MM.yyyy} г.", Model[i].ExpireDate))</td>
                         <td>
-                            <button type="submit" asp-route-id="CA92X0" class="btn btn-outline-success btn-xs" style="min-width: 120px">
+                            <button type="submit" asp-route-id="@Model[i].Code" class="btn btn-outline-success btn-xs" style="min-width: 120px">
                                 Get
                             </button>
                         </td>

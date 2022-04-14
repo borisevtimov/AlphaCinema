@@ -1,4 +1,5 @@
 ﻿using AlphaCinema.Core.ViewModels;
+using AlphaCinema.Infrastructure.Data.Identity;
 
 namespace AlphaCinema.Core.Contracts
 {
@@ -8,6 +9,8 @@ namespace AlphaCinema.Core.Contracts
 
         Task CreateVoucherAsync(CreateVoucherVM model);
 
-        Task GetVoucher(string userId, string voucherCode);
+        Task GetVoucherAsync(ApplicationUser user, string voucherCode);
+
+        Task<IList<DisplayVoucherVM>> GetAllVouchersForUserAsync();
     }
 }
