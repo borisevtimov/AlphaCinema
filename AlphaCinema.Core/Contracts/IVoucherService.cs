@@ -7,5 +7,7 @@ namespace AlphaCinema.Core.Contracts
         Task<IList<DisplayVoucherVM>> GetAllVouchersAsync();
 
         Task CreateVoucherAsync(CreateVoucherVM model);
+
+        Task GetVoucher(string userId, string voucherCode);
     }
 }

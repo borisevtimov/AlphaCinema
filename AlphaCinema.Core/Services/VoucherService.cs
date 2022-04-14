@@ -2,6 +2,7 @@
 using AlphaCinema.Core.Contracts;
 using AlphaCinema.Core.ViewModels;
 using AlphaCinema.Infrastructure.Data.Common;
+using AlphaCinema.Infrastructure.Data.Identity;
 using AlphaCinema.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
@@ -59,6 +60,11 @@ namespace AlphaCinema.Core.Services
                     IsUsed = v.IsUsed
                 })
                 .ToListAsync();
+        }
+
+        public async Task GetVoucher(string userId, string voucherCode)
+        {
+            
         }
     }
 }

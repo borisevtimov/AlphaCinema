@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace AlphaCinema.Infrastructure.Data.Migrations
+namespace AlphaCinema.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220407190736_AddedBalance")]
-    partial class AddedBalance
+    [Migration("20220414181748_RestoredMigrations")]
+    partial class RestoredMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -404,7 +404,7 @@ namespace AlphaCinema.Infrastructure.Data.Migrations
             modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Models.Card", b =>
                 {
                     b.HasOne("AlphaCinema.Infrastructure.Data.Identity.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("Cards")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -425,7 +425,7 @@ namespace AlphaCinema.Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("AlphaCinema.Infrastructure.Data.Identity.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("Purchases")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -457,7 +457,7 @@ namespace AlphaCinema.Infrastructure.Data.Migrations
             modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Models.UserVoucher", b =>
                 {
                     b.HasOne("AlphaCinema.Infrastructure.Data.Identity.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("UserVouchers")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -522,6 +522,15 @@ namespace AlphaCinema.Infrastructure.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Identity.ApplicationUser", b =>
+                {
+                    b.Navigation("Cards");
+
+                    b.Navigation("Purchases");
+
+                    b.Navigation("UserVouchers");
                 });
 
             modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Models.Card", b =>

@@ -33,10 +33,9 @@
                 {
                     <li class="nav-item d-none d-sm-inline-block">
                         <a asp-controller="Movie" asp-action="Active" class="nav-link">Movies</a>
-                        @*<a href="/" class="nav-link">Movies</a>*@
                     </li>
                     <li class="nav-item d-none d-sm-inline-block">
-                        <a href="/" class="nav-link">Vouchers</a>
+                        <a asp-controller="Voucher" asp-action="Get" class="nav-link">Vouchers</a>
                     </li>
                 }
                 @if (User.IsInRole(RoleConstant.Administrator))

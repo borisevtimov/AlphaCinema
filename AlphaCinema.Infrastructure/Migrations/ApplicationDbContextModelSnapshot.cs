@@ -4,18 +4,16 @@ using AlphaCinema.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace AlphaCinema.Infrastructure.Data.Migrations
+namespace AlphaCinema.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220402173000_AddRegisterDate")]
-    partial class AddRegisterDate
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,6 +94,9 @@ namespace AlphaCinema.Infrastructure.Data.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("CVC")
                         .HasColumnType("int");
@@ -401,7 +402,7 @@ namespace AlphaCinema.Infrastructure.Data.Migrations
             modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Models.Card", b =>
                 {
                     b.HasOne("AlphaCinema.Infrastructure.Data.Identity.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("Cards")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -422,7 +423,7 @@ namespace AlphaCinema.Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("AlphaCinema.Infrastructure.Data.Identity.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("Purchases")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -454,7 +455,7 @@ namespace AlphaCinema.Infrastructure.Data.Migrations
             modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Models.UserVoucher", b =>
                 {
                     b.HasOne("AlphaCinema.Infrastructure.Data.Identity.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("UserVouchers")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -519,6 +520,15 @@ namespace AlphaCinema.Infrastructure.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Identity.ApplicationUser", b =>
+                {
+                    b.Navigation("Cards");
+
+                    b.Navigation("Purchases");
+
+                    b.Navigation("UserVouchers");
                 });
 
             modelBuilder.Entity("AlphaCinema.Infrastructure.Data.Models.Card", b =>

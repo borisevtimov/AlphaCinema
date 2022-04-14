@@ -1,0 +1,42 @@
+﻿@using AlphaCinema.Core.Constants
+
+@{
+    ViewData[ViewConstant.Title] = "Available Vouchers";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Vouchers</h3>
+    </div>
+    <div class="card-body p-0">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Code</th>
+                    <th>Discount</th>
+                    <th>ExpireDate</th>
+                    <th style="width: 40px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < 3; i++)
+                {
+                    <form asp-controller="Voucher" asp-action="Get" method="post">
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>FA9X0C</td>
+                        <td>21%</td>
+                        <td>21.12.2022 г.</td>
+                        <td>
+                            <button type="submit" asp-route-id="CA92X0" class="btn btn-outline-success btn-xs" style="min-width: 120px">
+                                Get
+                            </button>
+                        </td>
+                    </tr>
+                    </form>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
