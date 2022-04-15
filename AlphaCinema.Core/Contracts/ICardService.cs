@@ -7,6 +7,9 @@ namespace AlphaCinema.Core.Contracts
     {
         Task<IList<DisplayCardVM>> GetAllCardsForDisplayAsync(ApplicationUser user);
 
-        Task AddPaymentMethod(ApplicationUser user, AddPaymentMethodVM model);
+        Task AddPaymentMethodAsync(ApplicationUser user, AddPaymentMethodVM model);
+
+        Task RemovePaymentMethodAsync(string cardId);
+
     }
 }

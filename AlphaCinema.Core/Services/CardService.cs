@@ -18,7 +18,7 @@ namespace AlphaCinema.Core.Services
             this.repository = repository;
         }
 
-        public async Task AddPaymentMethod(ApplicationUser user, AddPaymentMethodVM model)
+        public async Task AddPaymentMethodAsync(ApplicationUser user, AddPaymentMethodVM model)
         {
             Card? card = await repository.All<Card>()
                 .FirstOrDefaultAsync(c => c.Number == model.Number && c.UserId == user.Id);
@@ -72,6 +72,20 @@ namespace AlphaCinema.Core.Services
                     Number = c.Number
                 })
                 .ToListAsync();
+        }
+
+        public async Task RemovePaymentMethodAsync(string cardId)
+        {
+            Card? card = await repository.All<Card>()
+                .SingleOrDefaultAsync(c => c.Id == cardId);
+
+            if (card == null)
+            {
+                throw new ArgumentException(ExceptionConstant.PaymentMethodNotFound);
+            }
+
+            repository.Delete(card);
+            await repository.SaveChangesAsync();
         }
     }
 }

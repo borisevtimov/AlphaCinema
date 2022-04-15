@@ -68,7 +68,7 @@ namespace AlphaCinema.Controllers
             try
             {
                 ApplicationUser user = await userManager.GetUserAsync(User);
-                await cardService.AddPaymentMethod(user, model);
+                await cardService.AddPaymentMethodAsync(user, model);
                 return RedirectToAction(nameof(All));
             }
             catch (InvalidOperationException oe)
@@ -85,7 +85,28 @@ namespace AlphaCinema.Controllers
             }
             catch (Exception e)
             {
-                ViewData[MessageConstant.WarningMessage] = ExceptionConstant.UnexpectedError;
+                ViewData[MessageConstant.ErrorMessage] = ExceptionConstant.UnexpectedError;
+                logger.LogWarning(e.Message);
+                return RedirectToAction(nameof(All));
+            }
+        }
+
+        public async Task<IActionResult> Remove(string id)
+        {
+            try
+            {
+                await cardService.RemovePaymentMethodAsync(id);
+                return RedirectToAction(nameof(All));
+            }
+            catch (ArgumentException ae)
+            {
+                ViewData[MessageConstant.ErrorMessage] = ae.Message;
+                logger.LogWarning(ae.Message);
+                return RedirectToAction(nameof(All));
+            }
+            catch (Exception e)
+            {
+                ViewData[MessageConstant.ErrorMessage] = ExceptionConstant.UnexpectedError;
                 logger.LogWarning(e.Message);
                 return RedirectToAction(nameof(All));
             }

@@ -18,6 +18,31 @@ namespace AlphaCinema.Core.Services
             this.repository = repository;
         }
 
+        public async Task<SubmitPaymentVM> ActivateVoucherAsync(SubmitPaymentVM payment, string voucherCode)
+        {
+            Voucher? voucher = await repository.All<Voucher>()
+                .SingleOrDefaultAsync(v => v.Code == voucherCode);
+
+            if (voucher == null)
+            {
+                throw new ArgumentException(ExceptionConstant.VoucherDoesNotExist);
+            }
+
+            payment.VoucherDiscount = voucher.Discount;
+            payment.VoucherCode = voucherCode;
+
+            if (payment.VoucherDiscount == 0)
+            {
+                payment.FinalPrice = payment.PrimaryPrice;
+            }
+            else
+            {
+                payment.FinalPrice = payment.PrimaryPrice * (1 - payment.VoucherDiscount);
+            }
+
+            return payment;
+        }
+
         public async Task CreateVoucherAsync(CreateVoucherVM model)
         {
             Voucher? voucher = await repository.All<Voucher>()

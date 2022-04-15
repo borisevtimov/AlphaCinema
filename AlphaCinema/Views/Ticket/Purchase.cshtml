@@ -1,4 +1,6 @@
 ﻿@using AlphaCinema.Core.Constants
+@using AlphaCinema.Core.ViewModels
+@model SubmitPaymentVM
 
 @{
     ViewData[ViewConstant.Title] = "Purchase ticket";
@@ -9,90 +11,100 @@
         <div class="row">
             <div class="col-12">
                 <div class="invoice p-3 mb-3">
-                    <div class="row">
-                        <div class="col-12">
-                            <h4>
-                                <i class="fas fa-globe"></i><b> Alpha</b>Cinema - Movie: MovieName
-                                <small class="float-right">Payment Date: @Convert.ToString(string.Format("{0:dd.MM.yyyy}", DateTime.Now))</small>
-                            </h4>
+                    <form asp-controller="Ticket" asp-action="Purchase" method="post">
+                        <input type="hidden" name="MovieId" value="@Model.MovieId" />
+                        <input type="hidden" name="TicketId" value="@Model.TicketId" />
+                        <input type="hidden" name="HallNumber" value="@Model.HallNumber" />
+                        <input type="hidden" name="Row" value="@Model.Row" />
+                        <input type="hidden" name="Column" value="@Model.Column" />
+                        <input type="hidden" name="Start" value="@Model.Start" />
+                        <input type="hidden" name="PrimaryPrice" value="@Model.PrimaryPrice" />
+                        <input type="hidden" name="FinalPrice" value="@Model.FinalPrice" />
+                        <input type="hidden" name="VoucherDiscount" value="@Model.VoucherDiscount" />
+                        <div class="row">
+                            <div class="col-12">
+                                <h4>
+                                    <i class="fas fa-globe"></i><b> Alpha</b>Cinema - Movie: @Model.MovieName
+                                    <small class="float-right">Payment Date: @Convert.ToString(string.Format("{0:dd.MM.yyyy}", DateTime.Now))</small>
+                                </h4>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>HallNumber</th>
-                                        <th>Row</th>
-                                        <th>Column</th>
-                                        <th>Start</th>
-                                        <th>Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>5</td>
-                                        <td>21.11.2022 15:30:00</td>
-                                        <td>10.60 lv.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <p class="lead">Payment Methods:</p>
-                            <img src="~/img/credit/visa.png" alt="Visa">
-                            <img src="~/img/credit/mastercard.png" alt="Mastercard">
-                            <img src="~/img/credit/american-express.png" alt="American Express">
-                            <img src="~/img/credit/paypal2.png" alt="Paypal">
-                            <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-                                <b>Alpha</b>Cinema&copy uses the payment methods displayed above and guarantees save and
-                                encrypted charging via the best up-to-date transactions and safety criteria, as well as partnering 
-                                with the most experienced and proven partners from around the globe.
-                            </p>
-                        </div>
-                        <div class="col-6">
-                            <p class="lead">Order Information</p>
-                            <div class="table-responsive">
-                                <table class="table">
+                        <div class="row">
+                            <div class="col-12 table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>HallNumber</th>
+                                            <th>Row</th>
+                                            <th>Column</th>
+                                            <th>Start</th>
+                                            <th>Price</th>
+                                        </tr>
+                                    </thead>
                                     <tbody>
                                         <tr>
-                                            <th style="width:50%">Total:</th>
-                                            <td>7.20 lv.</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Ticket price</th>
-                                            <td>10.60 lv.</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Voucher Discount</th>
-                                            <td>3.40 lv.</td>
+                                            <td>@Model.HallNumber</td>
+                                            <td>@Model.Row</td>
+                                            <td>@Model.Column</td>
+                                            <td>@Model.Start</td>
+                                            <td>@Model.PrimaryPrice lv.</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                    </div>
-                    <div class="row no-print input-group mb-3">
-                        <div class="col-12">
-                            <button type="button" class="btn btn-success float-right">
-                                <i class="far fa-credit-card"></i> Submit
-                                Payment
-                            </button>
-                            <input type="text" class="float-right form-control" style="max-width: 220px; margin-right: 5px" disabled="" placeholder="Card Number..." value="5683-2912-5500-3122">
-                            <button type="button" class="btn btn-primary float-right">
-                                <i class="fas fa-wallet"></i> Payment Methods
-                            </button>
-
-                            <input type="text" class="float-right form-control" style="max-width: 130px; margin-right: 5px" disabled="" placeholder="Code..." value="CA9HX1">
-                            <button type="button" class="btn btn-info float-right">
-                                <i class="fas fa-ticket-alt"></i> Voucher
-                            </button>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="lead">Payment Methods:</p>
+                                <img src="~/img/credit/visa.png" alt="Visa">
+                                <img src="~/img/credit/mastercard.png" alt="Mastercard">
+                                <img src="~/img/credit/american-express.png" alt="American Express">
+                                <img src="~/img/credit/paypal2.png" alt="Paypal">
+                                <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+                                    <b>Alpha</b>Cinema&copy uses the payment methods displayed above and guarantees save and
+                                    encrypted charging via the best up-to-date transactions and safety criteria, as well as partnering
+                                    with the most experienced and proven partners from around the globe.
+                                </p>
+                            </div>
+                            <div class="col-6">
+                                <p class="lead">Order Information</p>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <th style="width:50%">Total:</th>
+                                                <td>@Model.FinalPrice.ToString("F2") lv.</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Ticket price</th>
+                                                <td>@Model.PrimaryPrice.ToString("F2") lv.</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Voucher Discount</th>
+                                                <td>@Model.VoucherDiscount.ToString("F2")% / @((Model.VoucherDiscount * Model.PrimaryPrice).ToString("F2")) lv.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        <div class="row no-print input-group mb-3">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-success float-right">
+                                    <i class="far fa-credit-card"></i> Submit
+                                    Payment
+                                </button>
+                                <input asp-for="CardNumber" type="text" class="float-right form-control" style="max-width: 220px; margin-right: 5px" placeholder="Card Number...">
+                                <button type="button" class="btn btn-primary float-right">
+                                    <i class="fas fa-wallet"></i> Payment Methods
+                                </button>
+                                <input asp-for="VoucherCode" type="text" class="float-right form-control" style="max-width: 130px; margin-right: 5px" placeholder="Code...">
+                                <button type="submit" class="btn btn-info float-right">
+                                    <i class="fas fa-ticket-alt"></i> Validate Voucher
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

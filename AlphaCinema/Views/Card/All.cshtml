@@ -30,7 +30,7 @@
                         <td>@Convert.ToString(string.Format("{0:MM/yy}", Model[i].ExpireDate))</td>
                         <td>@Model[i].Balance</td>
                         <td>
-                            <a asp-action="Delete" asp-controller="User" class="btn btn-block btn-outline-danger btn-xs float-right" style="max-width: 150px">Remove</a>
+                            <a asp-controller="Card" asp-action="Remove" asp-route-id="@Model[i].Id" class="btn btn-block btn-outline-danger btn-xs float-right" style="max-width: 150px">Remove</a>
                         </td>
                     </tr>
                 }

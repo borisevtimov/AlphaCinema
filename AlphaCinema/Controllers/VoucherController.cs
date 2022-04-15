@@ -38,7 +38,7 @@ namespace AlphaCinema.Controllers
             {
                 ApplicationUser user = await userManager.GetUserAsync(User);
                 await voucherService.GetVoucherAsync(user, id);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(nameof(Mine));
             }
             catch (InvalidOperationException oe)
             {
@@ -54,6 +54,12 @@ namespace AlphaCinema.Controllers
             IList<DisplayVoucherVM> model = await voucherService.GetAllUserVouchersAsync(user);
 
             return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult SubmitVoucher(SubmitPaymentVM model)
+        {
+            return RedirectToAction("Purchase", "Ticket", new { id = model.TicketId, voucherCode = model.VoucherCode });
         }
     }
 }

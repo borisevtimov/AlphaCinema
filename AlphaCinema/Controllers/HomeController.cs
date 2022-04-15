@@ -1,4 +1,6 @@
 ﻿using AlphaCinema.Core.Constants;
+using AlphaCinema.Core.Contracts;
+using AlphaCinema.Core.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,18 +8,21 @@ namespace AlphaCinema.Controllers
 {
     public class HomeController : BaseController
     {
+        private readonly IMovieService movieService;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IMovieService movieService, ILogger<HomeController> logger)
         {
+            this.movieService = movieService;
             _logger = logger;
         }
 
         [AllowAnonymous]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            //ViewData[MessageConstant.ErrorMessage] = "Error, something went wrong!";
-            return View();
+            IList<ActiveMovieMainInfoVM> activeMovies = await movieService.GetAllActiveMoviesMainInfoAsync();
+
+            return View(activeMovies);
         }
     }
 }
