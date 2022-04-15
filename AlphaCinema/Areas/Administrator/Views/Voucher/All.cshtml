@@ -18,7 +18,6 @@
                     <th>Code</th>
                     <th>Discount</th>
                     <th>ExpireDate</th>
-                    <th style="width: 40px">IsUsed</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,7 +28,6 @@
                         <td>@Model[i].Code</td>
                         <td>@Model[i].Discount</td>
                         <td>@Convert.ToString(string.Format("{0:dd.MM.yyyy} г.", Model[i].ExpireDate))</td>
-                        <td>@Model[i].IsUsed</td>
                     </tr>
                 }
             </tbody>

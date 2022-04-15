@@ -1,5 +1,43 @@
 ﻿@using AlphaCinema.Core.Constants
+@using AlphaCinema.Core.ViewModels
+@model IList<DisplayCardVM>
 
 @{
     ViewData[ViewConstant.Title] = "My Payment Methods";
 }
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">My Payment Methods</h3>
+    </div>
+    <div class="card-body p-0">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Card Number</th>
+                    <th>Expire Date</th>
+                    <th>Balance</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < @Model.Count; i++)
+                {
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>@Model[i].Number</td>
+                        <td>@Convert.ToString(string.Format("{0:MM/yy}", Model[i].ExpireDate))</td>
+                        <td>@Model[i].Balance</td>
+                        <td>
+                            <a asp-action="Delete" asp-controller="User" class="btn btn-block btn-outline-danger btn-xs float-right" style="max-width: 150px">Remove</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
+        <a asp-controller="Card" asp-action="Add" class="btn btn-primary float-right" style="max-width: 180px">Add Payment Method</a>
+    </div>
+</div>

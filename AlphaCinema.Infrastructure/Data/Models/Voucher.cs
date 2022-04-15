@@ -18,9 +18,6 @@ namespace AlphaCinema.Infrastructure.Data.Models
         [Column(TypeName = "date")]
         public DateTime ExpireDate { get; set; }
 
-        [Required]
-        public bool IsUsed { get; set; }
-
         public ICollection<UserVoucher> UserVouchers { get; set; }
 
         public ICollection<Ticket> Tickets { get; set; }

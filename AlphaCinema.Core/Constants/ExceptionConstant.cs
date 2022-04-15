@@ -15,5 +15,11 @@
         public const string NotActiveTickets = "There are not active tickets for this movie!";
 
         public const string VoucherAlreadyOwned = "User already owns the voucher!";
+
+        public const string UserNotFound = "User not found!";
+
+        public const string PaymentMethodAlreadyExists = "Payment method already exists!";
+
+        public const string DateIsBeforeCurrent = "Date is before current date!";
     }
 }

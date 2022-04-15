@@ -18,7 +18,8 @@ namespace AlphaCinema.Infrastructure.Data.Models
         public string Number { get; set; }
 
         [Required]
-        public int CVC { get; set; }
+        [StringLength(3)]
+        public string CVC { get; set; }
 
         [Required]
         [Column(TypeName = "date")]

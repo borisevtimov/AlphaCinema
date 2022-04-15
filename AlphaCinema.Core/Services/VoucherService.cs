@@ -42,7 +42,6 @@ namespace AlphaCinema.Core.Services
                 Code = model.Code,
                 Discount = model.Discount,
                 ExpireDate = date.Date,
-                IsUsed = false
             };
 
             await repository.AddAsync(resultVoucher);
@@ -70,7 +69,6 @@ namespace AlphaCinema.Core.Services
                     Code = v.Code,
                     Discount = v.Discount,
                     ExpireDate = v.ExpireDate.Date,
-                    IsUsed = v.IsUsed
                 })
                 .ToListAsync();
         }
