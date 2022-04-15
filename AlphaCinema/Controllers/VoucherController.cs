@@ -47,5 +47,13 @@ namespace AlphaCinema.Controllers
                 return RedirectToAction(nameof(Get));
             }
         }
+
+        public async Task<IActionResult> Mine()
+        {
+            ApplicationUser user = await userManager.GetUserAsync(User);
+            IList<DisplayVoucherVM> model = await voucherService.GetAllUserVouchersAsync(user);
+
+            return View(model);
+        }
     }
 }

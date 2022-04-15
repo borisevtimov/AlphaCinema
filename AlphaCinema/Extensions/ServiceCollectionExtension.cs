@@ -14,7 +14,8 @@ namespace Microsoft.Extensions.DependencyInjection
                     .AddScoped<IAdminUserService, AdminUserService>()
                     .AddScoped<IMovieService, MovieService>()
                     .AddScoped<ITicketService, TicketService>()
-                    .AddScoped<IVoucherService, VoucherService>();
+                    .AddScoped<IVoucherService, VoucherService>()
+                    .AddScoped<ICardService, CardService>();
 
             return services;
         }

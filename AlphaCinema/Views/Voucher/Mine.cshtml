@@ -1,0 +1,36 @@
+﻿@using AlphaCinema.Core.Constants
+@using AlphaCinema.Core.ViewModels
+@model IList<DisplayVoucherVM>
+
+@{
+    ViewData[ViewConstant.Title] = "My Vouchers";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">My Vouchers</h3>
+    </div>
+    <div class="card-body p-0">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="width: 10px">#</th>
+                    <th style="width: 500px">Code</th>
+                    <th style="width: 500px">Discount</th>
+                    <th>ExpireDate</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>@Model[i].Code</td>
+                        <td>@(Model[i].Discount * 100)%</td>
+                        <td>@Convert.ToString(string.Format("{0:dd.MM.yyyy} г.", Model[i].ExpireDate))</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

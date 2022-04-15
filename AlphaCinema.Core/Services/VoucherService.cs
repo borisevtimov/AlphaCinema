@@ -49,6 +49,19 @@ namespace AlphaCinema.Core.Services
             await repository.SaveChangesAsync();
         }
 
+        public async Task<IList<DisplayVoucherVM>> GetAllUserVouchersAsync(ApplicationUser user)
+        {
+            return await repository.All<Voucher>()
+                .Where(v => v.UserVouchers.Any(v => v.UserId == user.Id))
+                .Select(v => new DisplayVoucherVM()
+                {
+                    Code = v.Code,
+                    Discount = v.Discount,
+                    ExpireDate = v.ExpireDate
+                })
+                .ToListAsync();
+        }
+
         public async Task<IList<DisplayVoucherVM>> GetAllVouchersAsync()
         {
             return await repository.All<Voucher>()
