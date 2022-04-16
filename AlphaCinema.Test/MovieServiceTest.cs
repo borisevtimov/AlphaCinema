@@ -150,6 +150,80 @@ namespace AlphaCinema.Test
             Assert.That(() => movieService.GetMovieByIdAsync(movieId).Result.MovieId == movieId);
         }
 
+        [Test]
+        public void GetMovieForEditByIdThrowsIfMovieDoesntExist()
+        {
+            var movieService = serviceProvider.GetService<IMovieService>();
+
+            int movieId = int.MaxValue;
+
+            Assert.ThrowsAsync<ArgumentException>(async () => await movieService.GetMovieForEditByIdAsync(movieId),
+                ExceptionConstant.MovieNotFound);
+        }
+
+        [Test]
+        public void GetMovieForEditByIdGetsCorrectMovie()
+        {
+            var movieService = serviceProvider.GetService<IMovieService>();
+
+            int movieId = 1;
+
+            Assert.That(() => movieService.GetMovieForEditByIdAsync(movieId).Result.MovieId == movieId);
+        }
+
+        [Test]
+        public void GetMovieFullInfoByIdThrowsIfMovieDoesntExist()
+        {
+            var movieService = serviceProvider.GetService<IMovieService>();
+
+            int movieId = int.MaxValue;
+
+            Assert.ThrowsAsync<ArgumentException>(async () => await movieService.GetMovieFullInfoByIdAsync(movieId),
+                ExceptionConstant.MovieNotFound);
+        }
+
+        [Test]
+        public void GetMovieFullInfoByIdReturnsCorrectMovie()
+        {
+            var movieService = serviceProvider.GetService<IMovieService>();
+
+            Movie movie = new Movie()
+            {
+                 Id = 1,
+                 Name = "Lion King"
+            };
+
+            Assert.That(() => movieService.GetMovieFullInfoByIdAsync(movie.Id).Result.Name == movie.Name);
+        }
+
+        [Test]
+        public void GetMovieNameByIdThrowsIfMovieDoesntExist()
+        {
+            var movieService = serviceProvider.GetService<IMovieService>();
+
+            Movie movie = new Movie()
+            {
+                Id = 2,
+            };
+
+            Assert.ThrowsAsync<ArgumentException>(async () => await movieService.GetMovieNameByIdAsync(movie.Id),
+                ExceptionConstant.MovieNotFound);
+        }
+
+        [Test]
+        public void GetMovieNameByIdReturnsCorrectMovieName()
+        {
+            var movieService = serviceProvider.GetService<IMovieService>();
+
+            Movie movie = new Movie()
+            {
+                Id = 1,
+                Name = "Lion King"
+            };
+
+            Assert.That(() => movieService.GetMovieNameByIdAsync(movie.Id).Result == movie.Name);
+        }
+
         [TearDown]
         public void TearDown()
         {
