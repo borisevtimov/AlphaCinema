@@ -56,7 +56,8 @@ namespace AlphaCinema.Core.Services
                 .Select(ticket => new ActiveTicketsListVM()
                 {
                     MovieName = ticket.Movie.Name,
-                    Tickets = ticket.Movie.Tickets.Select(t => new ActiveTicketVM()
+                    Tickets = ticket.Movie.Tickets.Where(t => t.IsPurchased == false)
+                    .Select(t => new ActiveTicketVM()
                     {
                         TicketId = t.Id,
                         Start = t.Start,
@@ -68,7 +69,6 @@ namespace AlphaCinema.Core.Services
                        .ToList()
                 })
                 .FirstOrDefaultAsync();
-
 
             if (activeTickets == null)
             {
