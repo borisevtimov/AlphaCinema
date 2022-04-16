@@ -150,14 +150,8 @@ namespace AlphaCinema.Core.Services
 
         public async Task PurchaseTicketAsync(ApplicationUser user, SubmitPaymentVM model)
         {
-            Voucher? voucher = await repository.All<Voucher>()
-                .Where(v => v.Code == model.VoucherCode && v.UserVouchers.Any(u => u.UserId == user.Id))
-                .SingleOrDefaultAsync(v => v.Code == model.VoucherCode);
-
             Ticket? ticket = await repository.All<Ticket>()
-                .SingleOrDefaultAsync(t => t.Id == model.TicketId);
-
-            model = await voucherService.ActivateVoucherAsync(model, model.VoucherCode);
+                .FirstOrDefaultAsync(t => t.Id == model.TicketId);
 
             if (ticket == null)
             {
@@ -168,39 +162,29 @@ namespace AlphaCinema.Core.Services
             ticket.VoucherCode = model.VoucherCode;
             ticket.Price = model.FinalPrice;
 
+            UserVoucher? userVoucher = null;
+
+            if (model.VoucherCode != null)
+            {
+                userVoucher = await repository.All<UserVoucher>()
+                    .FirstOrDefaultAsync(uv => uv.VoucherCode == model.VoucherCode && uv.UserId == user.Id);
+            }
+
             Card? card = await repository.All<Card>()
-                .SingleOrDefaultAsync(c => c.Number == model.CardNumber);
+                .FirstOrDefaultAsync(c => c.Number == model.CardNumber && c.UserId == user.Id);
 
-            if (card == null)
+            Purchase purchase = new Purchase
             {
-                throw new ArgumentException(ExceptionConstant.PaymentMethodNotFound);
-            }
-
-            if (card.Balance < model.FinalPrice)
-            {
-                throw new InvalidOperationException(ExceptionConstant.InsufficientFunds);
-            }
-
-            Purchase purchase = new Purchase()
-            {
-                Amount = model.FinalPrice,
-                UserId = user.Id,
-                CardId = card.Id,
+                Card = card,
                 PurchaseDate = DateTime.Now,
-                TicketId = ticket.Id
+                ApplicationUser = user,
+                Ticket = ticket,
+                Amount = model.FinalPrice
             };
-
-            UserVoucher? userVoucher = await repository.All<UserVoucher>()
-                .Where(u => u.UserId == user.Id && u.VoucherCode == u.VoucherCode)
-                .FirstOrDefaultAsync();
-
-            if (userVoucher != null)
-            {
-                repository.Delete(userVoucher);
-            }
 
             card.Balance -= model.FinalPrice;
 
+            repository.Delete(userVoucher);
             await repository.AddAsync(purchase);
             await repository.SaveChangesAsync();
         }

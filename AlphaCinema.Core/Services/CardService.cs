@@ -74,6 +74,19 @@ namespace AlphaCinema.Core.Services
                 .ToListAsync();
         }
 
+        public async Task<bool> IsPaymentMethodValid(ApplicationUser user, string cardNumber)
+        {
+            Card? card = await repository.All<Card>()
+                .SingleOrDefaultAsync(c => c.UserId == user.Id && c.Number == cardNumber);
+
+            if (card == null)
+            {
+                return false;
+            }
+
+            return card.ExpireDate > DateTime.Now;
+        }
+
         public async Task RemovePaymentMethodAsync(string cardId)
         {
             Card? card = await repository.All<Card>()

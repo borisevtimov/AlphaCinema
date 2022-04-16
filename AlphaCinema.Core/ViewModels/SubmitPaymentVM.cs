@@ -1,4 +1,6 @@
-﻿namespace AlphaCinema.Core.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AlphaCinema.Core.ViewModels
 {
     public class SubmitPaymentVM
     {
@@ -22,8 +24,12 @@
 
         public decimal FinalPrice { get; set; }
 
+        [RegularExpression(@"^[A-Z0-9]{6}$", ErrorMessage = "Code must contain only 6 capital characters!")]
+        [StringLength(6)]
         public string VoucherCode { get; set; }
 
+        [Required(ErrorMessage = "Card number is required!")]
+        [RegularExpression(@"^\d{4}-\d{4}-\d{4}-\d{4}$", ErrorMessage = "Car number must be in format 0000-0000-0000-0000")]
         public string CardNumber { get; set; }
     }
 }

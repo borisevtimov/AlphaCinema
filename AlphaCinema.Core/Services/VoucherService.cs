@@ -125,5 +125,28 @@ namespace AlphaCinema.Core.Services
 
             await repository.SaveChangesAsync();
         }
+
+        public async Task<SubmitVoucherVM> GetVoucherForUserByCodeAsync(ApplicationUser user, string voucherCode)
+        {
+            Voucher? voucher = await repository.All<Voucher>()
+                .Where(v => v.UserVouchers.Any(u => u.UserId == user.Id) && v.Code == voucherCode)
+                .FirstOrDefaultAsync();
+
+            if (voucher == null)
+            {
+                throw new InvalidOperationException(ExceptionConstant.VoucherDoesNotExist);
+            }
+
+            SubmitVoucherVM submitVoucher = new SubmitVoucherVM();
+
+            if (voucher.ExpireDate < DateTime.Now)
+            {
+                throw new InvalidOperationException(ExceptionConstant.VoucherIsExpired);
+            }
+
+            submitVoucher.VoucherCode = voucherCode;
+            submitVoucher.Discount = voucher.Discount;
+            return submitVoucher;
+        }
     }
 }

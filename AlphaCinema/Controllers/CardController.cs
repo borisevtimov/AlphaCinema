@@ -111,5 +111,11 @@ namespace AlphaCinema.Controllers
                 return RedirectToAction(nameof(All));
             }
         }
+
+        [HttpPost]
+        public IActionResult SubmitPaymentMethod(int id, string voucherCode, string cardNumber)
+        {
+            return RedirectToAction("Purchase", "Ticket", new { id = id, voucherCode = voucherCode, cardNumber = cardNumber });
+        }
     }
 }

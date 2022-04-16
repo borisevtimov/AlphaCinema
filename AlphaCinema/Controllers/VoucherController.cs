@@ -57,9 +57,9 @@ namespace AlphaCinema.Controllers
         }
 
         [HttpPost]
-        public IActionResult SubmitVoucher(SubmitPaymentVM model)
+        public IActionResult SubmitVoucher(int id, string voucherCode)
         {
-            return RedirectToAction("Purchase", "Ticket", new { id = model.TicketId, voucherCode = model.VoucherCode });
+            return RedirectToAction("Purchase", "Ticket", new { id = id, voucherCode = voucherCode});
         }
     }
 }

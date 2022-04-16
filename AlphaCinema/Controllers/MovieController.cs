@@ -1,6 +1,7 @@
 ﻿using AlphaCinema.Core.Constants;
 using AlphaCinema.Core.Contracts;
 using AlphaCinema.Core.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlphaCinema.Controllers
@@ -16,6 +17,7 @@ namespace AlphaCinema.Controllers
             this.logger = logger;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Active()
         {
             IList<ActiveMovieMainInfoVM> activeMovies = await movieService.GetAllActiveMoviesMainInfoAsync();
@@ -23,6 +25,7 @@ namespace AlphaCinema.Controllers
             return View(activeMovies);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> MoreInfo(int id)
         {
             try

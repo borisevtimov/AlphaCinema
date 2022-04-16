@@ -59,29 +59,48 @@ namespace AlphaCinema.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Purchase(int id, string voucherCode)
+        public async Task<IActionResult> Purchase(int id, string voucherCode, string cardNumber)
         {
             SubmitPaymentVM? model = await ticketService.GetTicketInfoAsync(id);
+            ApplicationUser user = await userManager.GetUserAsync(User);
 
-            if (voucherCode != null)
+            try
             {
-                try
+                if (voucherCode != null)
                 {
-                    model = await voucherService.ActivateVoucherAsync(model, voucherCode);
-                    return View(model);
+                    SubmitVoucherVM voucher = await voucherService.GetVoucherForUserByCodeAsync(user, voucherCode);
+
+                    model.VoucherDiscount = voucher.Discount;
+                    model.VoucherCode = voucherCode;
+                    model.FinalPrice = model.PrimaryPrice * (1 - model.VoucherDiscount);
                 }
-                catch (ArgumentException ae)
+
+                if (cardNumber != null)
                 {
-                    ViewData[MessageConstant.WarningMessage] = ae.Message;
-                    logger.LogInformation(ae.Message);
-                    return RedirectToAction(nameof(Purchase), new { id = model.TicketId });
+                    if (await cardService.IsPaymentMethodValid(user, cardNumber))
+                    {
+                        model.CardNumber = cardNumber;
+                    }
+                    else
+                    {
+                        ViewData[MessageConstant.ErrorMessage] = ExceptionConstant.InvalidPaymentMethod;
+                        logger.LogInformation(ExceptionConstant.InvalidPaymentMethod);
+                        return RedirectToAction("Active", "Movie");
+                    }
                 }
-                catch (Exception e)
-                {
-                    ViewData[MessageConstant.ErrorMessage] = ExceptionConstant.UnexpectedError;
-                    logger.LogInformation(e.Message);
-                    return RedirectToAction(nameof(Purchase), new { id = model.TicketId });
-                }
+
+            }
+            catch (InvalidOperationException oe)
+            {
+                ViewData[MessageConstant.WarningMessage] = oe.Message;
+                logger.LogInformation(oe.Message);
+                return RedirectToAction("Active", "Movie");
+            }
+            catch (Exception e)
+            {
+                ViewData[MessageConstant.WarningMessage] = ExceptionConstant.UnexpectedError;
+                logger.LogWarning(e.Message);
+                return RedirectToAction("Active", "Movie");
             }
 
             return View(model);
@@ -100,12 +119,6 @@ namespace AlphaCinema.Controllers
             {
                 ViewData[MessageConstant.ErrorMessage] = ae.Message;
                 logger.LogWarning(ae.Message);
-                return RedirectToAction(nameof(Purchase), new { id = model.TicketId });
-            }
-            catch (InvalidOperationException oe)
-            {
-                ViewData[MessageConstant.ErrorMessage] = oe.Message;
-                logger.LogInformation(oe.Message);
                 return RedirectToAction(nameof(Purchase), new { id = model.TicketId });
             }
             catch (Exception e)

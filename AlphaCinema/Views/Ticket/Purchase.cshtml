@@ -11,100 +11,107 @@
         <div class="row">
             <div class="col-12">
                 <div class="invoice p-3 mb-3">
-                    <form asp-controller="Ticket" asp-action="Purchase" method="post">
-                        <input type="hidden" name="MovieId" value="@Model.MovieId" />
-                        <input type="hidden" name="TicketId" value="@Model.TicketId" />
-                        <input type="hidden" name="HallNumber" value="@Model.HallNumber" />
-                        <input type="hidden" name="Row" value="@Model.Row" />
-                        <input type="hidden" name="Column" value="@Model.Column" />
-                        <input type="hidden" name="Start" value="@Model.Start" />
-                        <input type="hidden" name="PrimaryPrice" value="@Model.PrimaryPrice" />
-                        <input type="hidden" name="FinalPrice" value="@Model.FinalPrice" />
-                        <input type="hidden" name="VoucherDiscount" value="@Model.VoucherDiscount" />
-                        <div class="row">
-                            <div class="col-12">
-                                <h4>
-                                    <i class="fas fa-globe"></i><b> Alpha</b>Cinema - Movie: @Model.MovieName
-                                    <small class="float-right">Payment Date: @Convert.ToString(string.Format("{0:dd.MM.yyyy}", DateTime.Now))</small>
-                                </h4>
-                            </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>
+                                <i class="fas fa-globe"></i><b> Alpha</b>Cinema - Movie: @Model.MovieName
+                                <small class="float-right">Payment Date: @Convert.ToString(string.Format("{0:dd.MM.yyyy}", DateTime.Now))</small>
+                            </h4>
                         </div>
-                        <div class="row">
-                            <div class="col-12 table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>HallNumber</th>
-                                            <th>Row</th>
-                                            <th>Column</th>
-                                            <th>Start</th>
-                                            <th>Price</th>
-                                        </tr>
-                                    </thead>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>HallNumber</th>
+                                        <th>Row</th>
+                                        <th>Column</th>
+                                        <th>Start</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@Model.HallNumber</td>
+                                        <td>@Model.Row</td>
+                                        <td>@Model.Column</td>
+                                        <td>@Model.Start</td>
+                                        <td>@Model.PrimaryPrice lv.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="lead">Payment Methods:</p>
+                            <img src="~/img/credit/visa.png" alt="Visa">
+                            <img src="~/img/credit/mastercard.png" alt="Mastercard">
+                            <img src="~/img/credit/american-express.png" alt="American Express">
+                            <img src="~/img/credit/paypal2.png" alt="Paypal">
+                            <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+                                <b>Alpha</b>Cinema&copy uses the payment methods displayed above and guarantees save and
+                                encrypted charging via the best up-to-date transactions and safety criteria, as well as partnering
+                                with the most experienced and proven partners from around the globe.
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <p class="lead">Order Information</p>
+                            <div class="table-responsive">
+                                <table class="table">
                                     <tbody>
                                         <tr>
-                                            <td>@Model.HallNumber</td>
-                                            <td>@Model.Row</td>
-                                            <td>@Model.Column</td>
-                                            <td>@Model.Start</td>
-                                            <td>@Model.PrimaryPrice lv.</td>
+                                            <th style="width:50%">Total:</th>
+                                            <td>@Model.FinalPrice.ToString("F2") lv.</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Ticket price</th>
+                                            <td>@Model.PrimaryPrice.ToString("F2") lv.</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Voucher Discount</th>
+                                            <td>@Model.VoucherDiscount.ToString("F2")% / @((Model.VoucherDiscount * Model.PrimaryPrice).ToString("F2")) lv.</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <p class="lead">Payment Methods:</p>
-                                <img src="~/img/credit/visa.png" alt="Visa">
-                                <img src="~/img/credit/mastercard.png" alt="Mastercard">
-                                <img src="~/img/credit/american-express.png" alt="American Express">
-                                <img src="~/img/credit/paypal2.png" alt="Paypal">
-                                <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-                                    <b>Alpha</b>Cinema&copy uses the payment methods displayed above and guarantees save and
-                                    encrypted charging via the best up-to-date transactions and safety criteria, as well as partnering
-                                    with the most experienced and proven partners from around the globe.
-                                </p>
-                            </div>
-                            <div class="col-6">
-                                <p class="lead">Order Information</p>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <th style="width:50%">Total:</th>
-                                                <td>@Model.FinalPrice.ToString("F2") lv.</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Ticket price</th>
-                                                <td>@Model.PrimaryPrice.ToString("F2") lv.</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Voucher Discount</th>
-                                                <td>@Model.VoucherDiscount.ToString("F2")% / @((Model.VoucherDiscount * Model.PrimaryPrice).ToString("F2")) lv.</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row no-print input-group mb-3">
-                            <div class="col-12">
+                    </div>
+                    <div class="row no-print input-group mb-3">
+                        <div class="col-12">
+                            <form asp-controller="Ticket" asp-action="Purchase" method="post">
                                 <button type="submit" class="btn btn-success float-right">
                                     <i class="far fa-credit-card"></i> Submit
                                     Payment
                                 </button>
+                                <input type="hidden" name="MovieId" value="@Model.MovieId" />
+                                <input type="hidden" name="TicketId" value="@Model.TicketId" />
+                                <input type="hidden" name="HallNumber" value="@Model.HallNumber" />
+                                <input type="hidden" name="Row" value="@Model.Row" />
+                                <input type="hidden" name="Column" value="@Model.Column" />
+                                <input type="hidden" name="Start" value="@Model.Start" />
+                                <input type="hidden" name="PrimaryPrice" value="@Model.PrimaryPrice" />
+                                <input type="hidden" name="FinalPrice" value="@Model.FinalPrice" />
+                                <input type="hidden" name="VoucherDiscount" value="@Model.VoucherDiscount" />
+                                <input type="hidden" name="VoucherCode" value="@Model.VoucherCode" />
+                                <input type="hidden" name="CardNumber" value="@Model.CardNumber" />
+                            </form>
+                            <form asp-controller="Card" asp-action="SubmitPaymentMethod" asp-route-id="@Model.TicketId" asp-route-voucherCode="@Model.VoucherCode" asp-route-cardNumber="@Model.CardNumber" method="post">
                                 <input asp-for="CardNumber" type="text" class="float-right form-control" style="max-width: 220px; margin-right: 5px" placeholder="Card Number...">
-                                <button type="button" class="btn btn-primary float-right">
+                                <button type="submit" class="btn btn-primary float-right">
                                     <i class="fas fa-wallet"></i> Payment Methods
                                 </button>
+                            </form>
+                            <form asp-controller="Voucher" asp-action="SubmitVoucher" asp-route-voucherCode="@Model.VoucherCode" asp-route-id="@Model.TicketId" method="post">
                                 <input asp-for="VoucherCode" type="text" class="float-right form-control" style="max-width: 130px; margin-right: 5px" placeholder="Code...">
                                 <button type="submit" class="btn btn-info float-right">
                                     <i class="fas fa-ticket-alt"></i> Validate Voucher
                                 </button>
-                            </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

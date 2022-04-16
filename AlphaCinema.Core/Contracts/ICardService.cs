@@ -11,5 +11,7 @@ namespace AlphaCinema.Core.Contracts
 
         Task RemovePaymentMethodAsync(string cardId);
 
+        Task<bool> IsPaymentMethodValid(ApplicationUser user, string cardNumber);
+
     }
 }
