@@ -166,6 +166,21 @@ namespace AlphaCinema.Test
             Assert.DoesNotThrow(() => service.AddPaymentMethodAsync(user, model));
         }
 
+        [Test]
+        [TestCase("abc", "0000-0000-0000-0000")]
+        [TestCase("abcd", "5555-1234-1234-1234")]
+        public void IsPaymentMethodValidReturnsNullIfCardInfoIsInvalid(string userId, string cardNumber)
+        {
+            var service = serviceProvider.GetService<ICardService>();
+
+            ApplicationUser? user = new ApplicationUser()
+            {
+                Id = userId
+            };
+
+            Assert.IsFalse(service.IsPaymentMethodValid(user, cardNumber).Result);
+        }
+
         [TearDown]
         public void TearDown()
         {

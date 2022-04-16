@@ -35,8 +35,6 @@ namespace AlphaCinema.Test
             var repository = serviceProvider.GetService<IRepository>();
 
             await SeedDatabaseAsync(repository);
-
-            
         }
 
         [Test]
@@ -135,6 +133,20 @@ namespace AlphaCinema.Test
             };
 
             Assert.DoesNotThrowAsync(async () => await service.GetTicketsForUserAsync(user));
+        }
+
+        [Test]
+        public void PurchaseTicketThrowsIfTicketDoesntExist()
+        {
+            var service = serviceProvider.GetService<ITicketService>();
+
+            SubmitPaymentVM payment = new SubmitPaymentVM
+            {
+                TicketId = 2
+            };
+
+            Assert.CatchAsync<ArgumentException>(async () => await
+                service.PurchaseTicketAsync(null, payment));
         }
 
         [TearDown]

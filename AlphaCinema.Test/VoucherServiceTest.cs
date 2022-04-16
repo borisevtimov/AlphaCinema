@@ -182,6 +182,37 @@ namespace AlphaCinema.Test
             Assert.DoesNotThrowAsync(async () => await service.GetVoucherAsync(user, voucherCode));
         }
 
+        [Test]
+        [TestCase("abc", "000000")]
+        [TestCase("abcd", "CX90VC")]
+        public void GetVoucherForUserByCodeThrowsIfVoucherIsInvalid(string userId, string voucherCode)
+        {
+            var service = serviceProvider.GetService<IVoucherService>();
+
+            ApplicationUser user = new ApplicationUser
+            {
+                Id = userId
+            };
+
+            Assert.CatchAsync<InvalidOperationException>(async () => await
+                service.GetVoucherForUserByCodeAsync(user, voucherCode), 
+                ExceptionConstant.VoucherDoesNotExist);
+        }
+
+        [Test]
+        public void GetVoucherForUserByCodeDoesNotThrow()
+        {
+            var service = serviceProvider.GetService<IVoucherService>();
+
+            ApplicationUser user = new ApplicationUser
+            {
+                Id = "abc"
+            };
+
+            Assert.DoesNotThrowAsync(async () => await
+                service.GetVoucherForUserByCodeAsync(user, "CX90VC"));
+        }
+
         [TearDown]
         public void TearDown()
         {
@@ -194,7 +225,7 @@ namespace AlphaCinema.Test
             {
                 Code = "CX90VC",
                 Discount = 0.35m,
-                ExpireDate = new DateTime(2022, 07, 15),
+                ExpireDate = new DateTime(2022, 07, 15)
             };
 
             ApplicationUser user = new ApplicationUser
