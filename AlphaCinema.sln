@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlphaCinema", "AlphaCinema\AlphaCinema.csproj", "{8C3C34B7-8775-4D75-9BBC-329F5B2BCAE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlphaCinema", "AlphaCinema\AlphaCinema.csproj", "{8C3C34B7-8775-4D75-9BBC-329F5B2BCAE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlphaCinema.Core", "AlphaCinema.Core\AlphaCinema.Core.csproj", "{6F7C3789-6898-4522-BA0D-20531991C964}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlphaCinema.Core", "AlphaCinema.Core\AlphaCinema.Core.csproj", "{6F7C3789-6898-4522-BA0D-20531991C964}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlphaCinema.Infrastructure", "AlphaCinema.Infrastructure\AlphaCinema.Infrastructure.csproj", "{A36ACC7A-C6F6-4E29-9A7F-4C1DFF09A159}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlphaCinema.Infrastructure", "AlphaCinema.Infrastructure\AlphaCinema.Infrastructure.csproj", "{A36ACC7A-C6F6-4E29-9A7F-4C1DFF09A159}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlphaCinema.Test", "AlphaCinema.Test\AlphaCinema.Test.csproj", "{7ACCA834-04B2-4E81-9399-18D1C3E773BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{A36ACC7A-C6F6-4E29-9A7F-4C1DFF09A159}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A36ACC7A-C6F6-4E29-9A7F-4C1DFF09A159}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A36ACC7A-C6F6-4E29-9A7F-4C1DFF09A159}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ACCA834-04B2-4E81-9399-18D1C3E773BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ACCA834-04B2-4E81-9399-18D1C3E773BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ACCA834-04B2-4E81-9399-18D1C3E773BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ACCA834-04B2-4E81-9399-18D1C3E773BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
