@@ -38,7 +38,7 @@ namespace AlphaCinema.Core.Services
             bool isParsed = DateTime.TryParseExact(model.Start,
                 FormatConstant.FullDateTime, CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
 
-            if (!isParsed)
+            if (!isParsed || date < DateTime.Now)
             {
                 throw new ArgumentException(ExceptionConstant.InvalidDate);
             }

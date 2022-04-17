@@ -101,7 +101,7 @@
                             <form asp-controller="Card" asp-action="SubmitPaymentMethod" asp-route-id="@Model.TicketId" asp-route-voucherCode="@Model.VoucherCode" asp-route-cardNumber="@Model.CardNumber" method="post">
                                 <input asp-for="CardNumber" type="text" class="float-right form-control" style="max-width: 220px; margin-right: 5px" placeholder="Card Number...">
                                 <button type="submit" class="btn btn-primary float-right">
-                                    <i class="fas fa-wallet"></i> Payment Methods
+                                    <i class="fas fa-wallet"></i> Validate Payment Method
                                 </button>
                             </form>
                             <form asp-controller="Voucher" asp-action="SubmitVoucher" asp-route-voucherCode="@Model.VoucherCode" asp-route-id="@Model.TicketId" method="post">
